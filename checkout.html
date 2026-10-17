@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pasarela de Pago Seguro | Digital Majfa Dreams</title>
+<link rel="icon" href="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Majfa Dreams (DMD)">
+<meta property="og:title" content="Digital Majfa Dreams | Desarrollo Web, Identidad Visual y Marketing Digital">
+<meta property="og:description" content="Páginas web profesionales, diseño de logotipos, simulador con IA en 3D y dominios oficiales para empresas. Precios transparentes desde $150 MXN.">
+<meta property="og:image" content="og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Majfa Dreams (DMD) | Agencia Digital Corporativa">
+<meta name="twitter:description" content="Construimos la presencia digital e identidad corporativa de tu empresa. Prueba gratis nuestro Arquitecto Web IA 3D.">
+<meta name="twitter:image" content="og-preview.png">
+<meta name="theme-color" content="#0067b8">
+<link rel="stylesheet" href="style.css">
+<style>
+  .pay-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .pay-tab-btn {
+    padding: 13px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    background: var(--bg-alt);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .pay-tab-btn.active {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 103, 184, 0.14);
+  }
+  .pay-method-pane {
+    display: none;
+    animation: fadeIn 0.2s ease;
+  }
+  .pay-method-pane.active {
+    display: block;
+  }
+
+  /* Tarjeta Bancaria Visual en Perspectiva */
+  .credit-card-visual {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: #ffffff;
+    border-radius: 14px;
+    padding: 24px 26px;
+    max-width: 400px;
+    margin: 0 auto 22px auto;
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.22);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  .credit-card-visual:hover {
+    transform: perspective(900px) rotateY(-6deg) rotateX(4deg);
+  }
+  .cc-chip {
+    width: 42px;
+    height: 30px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #fcd34d 0%, #d97706 100%);
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+  .cc-number-display {
+    font-family: "Courier New", monospace;
+    font-size: 1.32rem;
+    letter-spacing: 2.5px;
+    margin: 22px 0 18px;
+    font-weight: 700;
+  }
+  .spei-box {
+    background: #f8fafc;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 18px;
+  }
+  .spei-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.92rem;
+  }
+  .spei-row:last-child {
+    border-bottom: none;
+  }
+
+  /* Modal de Recibo Oficial */
+  .receipt-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2500;
+    padding: 20px;
+  }
+  .receipt-modal-backdrop.open {
+    display: flex;
+  }
+  .receipt-card {
+    background: #ffffff;
+    border-radius: 14px;
+    max-width: 520px;
+    width: 100%;
+    padding: 34px;
+    box-shadow: var(--shadow-3d);
+    border: 1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+<div class="ms-color-strip"></div>
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <div><strong>Digital Majfa Dreams (DMD)</strong> · Soluciones Digitales, Diseño Corporativo y Desarrollo Web para Empresas</div>
+    <div class="topbar-links">
+      <span>Atención Ejecutiva: Lun–Sáb 9:00 a 19:00 hrs</span>
+      <a href="servicios.html">Cotizador en Línea</a>
+      <a href="portal-cliente.html">Soporte a Clientes</a>
+    </div>
+  </div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="wrap navin">
+    <a class="brand" href="index.html">
+      <img src="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg" alt="DMD Logo">
+      <div>
+        <span>Digital Majfa Dreams</span>
+        <small class="brand-sub">Agencia Digital &amp; Diseño Corporativo</small>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰ <span class="menu-label">Menú</span></button>
+    <div class="links" id="navLinks">
+      <a href="index.html" class="">Inicio</a>
+      <a href="servicios.html" class="on">Servicios</a>
+      <a href="paquetes.html" class="">Paquetes</a>
+      <a href="dominios.html" class="">Dominios</a>
+      <a href="boceto.html" class="">Simulador</a>
+      <a href="index.html#portafolio">Portafolio</a>
+      <a href="index.html#contacto">Contacto</a>
+    </div>
+    <div class="acts2">
+      <button type="button" class="theme-toggle-btn" onclick="toggleDarkMode()" title="Cambiar entre Modo Claro y Modo Noche">
+        <span>🌙</span> <span class="theme-label">Modo Noche</span>
+      </button>
+      <a class="cart-pill" id="pill" href="servicios.html#aside" title="Ver servicios seleccionados">
+        <span class="cart-label">Cotización</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a class="btn" id="portalBtn" href="login.html" style="padding: 9px 16px; font-size:0.88rem;">Iniciar Sesión</a>
+      <a class="ghost" id="adminBtn" href="admin.html" style="display:none; padding: 9px 14px; font-size:0.86rem; border-color:var(--primary); color:var(--primary);">Panel Admin</a>
+    </div>
+  </div>
+</nav>
+<script src="script.js"></script>
+
+<div class="wrap band" style="padding-top:40px;">
+  <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; margin-bottom:28px;">
+    <div>
+      <span class="eyebrow">Pasarela Empresarial Encriptada TLS 256-Bit</span>
+      <h1 style="margin-bottom:6px;">Finalizar Pedido y Pago Seguro</h1>
+      <p class="mute" style="margin:0;">Completa los datos de tu orden y selecciona tu método de pago preferido.</p>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center; font-size:0.84rem; color:var(--success); font-weight:600; background:var(--success-bg); padding:8px 14px; border-radius:99px; border:1px solid rgba(5,150,105,0.25);">
+      <span>🔒 Transacción Protegida por Garantía DMD</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- FORMULARIO PRINCIPAL DE CHECKOUT -->
+    <form class="card" id="checkoutForm" onsubmit="completeOrder(event)">
+      <h3 style="margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--line);">1. Datos del Titular y Facturación</h3>
+      <div class="form-grid-2" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+        <label class="f">Nombre completo del titular
+          <input type="text" id="chkName" placeholder="Ej. Roberto Gómez" required oninput="syncCardHolder(this.value)">
+        </label>
+        <label class="f">Empresa o Nombre Comercial
+          <input type="text" id="chkCompany" placeholder="Ej. Comercializadora Reforma" required>
+        </label>
+      </div>
+      <div class="form-grid-2" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+        <label class="f">Correo electrónico (envío de factura y accesos)
+          <input type="email" id="chkEmail" placeholder="contacto@tuempresa.com" required>
+        </label>
+        <label class="f">Teléfono / WhatsApp de seguimiento
+          <input type="tel" id="chkPhone" placeholder="55 1234 5678" required>
+        </label>
+      </div>
+
+      <h3 style="margin:20px 0 14px; padding-bottom:10px; border-bottom:1px solid var(--line);">2. Esquema de Pago</h3>
+      <div class="form-grid-2" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px;">
+        <label class="option-check" style="margin:0;">
+          <div>
+            <div style="font-weight:700; color:var(--text);">Anticipo del 50%</div>
+            <small class="mute">Inicia hoy y liquida al aprobar entrega</small>
+          </div>
+          <input type="radio" name="payMode" value="advance" checked onchange="renderCheckoutSummary()">
+        </label>
+        <label class="option-check" style="margin:0;">
+          <div>
+            <div style="font-weight:700; color:var(--text);">Pago Total (100% · -5% Extra)</div>
+            <small style="color:var(--success); font-weight:600;">5% de descuento adicional inmediato</small>
+          </div>
+          <input type="radio" name="payMode" value="full" onchange="renderCheckoutSummary()">
+        </label>
+      </div>
+
+      <h3 style="margin:10px 0 14px; padding-bottom:10px; border-bottom:1px solid var(--line);">3. Selecciona tu Método de Pago</h3>
+      <input type="hidden" id="chkMethod" value="Tarjeta de Crédito / Débito">
+
+      <div class="pay-tabs">
+        <button type="button" class="pay-tab-btn active" onclick="switchPayTab('card', this, 'Tarjeta de Crédito / Débito')">
+          <span style="font-size:1.25rem;">💳</span>
+          <span>Tarjeta Bancaria</span>
+          <small style="font-size:0.72rem; opacity:0.8;">Visa · Mastercard · Amex</small>
+        </button>
+        <button type="button" class="pay-tab-btn" onclick="switchPayTab('spei', this, 'Transferencia Interbancaria SPEI')">
+          <span style="font-size:1.25rem;">🏦</span>
+          <span>Transferencia SPEI</span>
+          <small style="font-size:0.72rem; opacity:0.8;">CLABE Empresarial Directa</small>
+        </button>
+        <button type="button" class="pay-tab-btn" onclick="switchPayTab('link', this, 'Link de Pago / WhatsApp Ejecutivo')">
+          <span style="font-size:1.25rem;">📱</span>
+          <span>Mercado Pago / WhatsApp</span>
+          <small style="font-size:0.72rem; opacity:0.8;">Asistencia Ejecutiva</small>
+        </button>
+      </div>
+
+      <!-- PESTAÑA A: TARJETA BANCARIA INTERACTIVA -->
+      <div id="pane-card" class="pay-method-pane active">
+        <div class="credit-card-visual">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="cc-chip"></div>
+            <strong id="ccBrandLabel" style="font-size:1.1rem; letter-spacing:1px;">VISA / MASTERCARD</strong>
+          </div>
+          <div class="cc-number-display" id="ccNumberPreview">•••• •••• •••• 4242</div>
+          <div style="display:flex; justify-content:space-between; font-size:0.78rem; text-transform:uppercase; opacity:0.9;">
+            <div>
+              <div style="font-size:0.65rem; opacity:0.75;">Titular de la Tarjeta</div>
+              <strong id="ccHolderPreview">NOMBRE DEL TITULAR</strong>
+            </div>
+            <div>
+              <div style="font-size:0.65rem; opacity:0.75;">Vigencia</div>
+              <strong id="ccExpPreview">12/28</strong>
+            </div>
+          </div>
+        </div>
+
+        <label class="f">Número de Tarjeta (16 dígitos)
+          <input type="text" id="ccNumInput" maxlength="19" placeholder="4532 •••• •••• ••••" oninput="formatCardNumber(this)">
+        </label>
+        <div class="form-grid-2" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <label class="f">Fecha de Vencimiento (MM/AA)
+            <input type="text" id="ccExpInput" maxlength="5" placeholder="MM/AA" oninput="formatCardExp(this)">
+          </label>
+          <label class="f">Código de Seguridad (CVV)
+            <input type="password" id="ccCvvInput" maxlength="4" placeholder="•••">
+          </label>
+        </div>
+      </div>
+
+      <!-- PESTAÑA B: TRANSFERENCIA SPEI -->
+      <div id="pane-spei" class="pay-method-pane">
+        <div class="spei-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <strong style="color:var(--primary);">Datos Oficiales para Transferencia SPEI 24/7</strong>
+            <span class="status-badge">Acreditación Inmediata</span>
+          </div>
+          <div class="spei-row">
+            <span class="mute">Beneficiario:</span>
+            <strong>Digital Majfa Dreams · Administración Financiera</strong>
+          </div>
+          <div class="spei-row">
+            <span class="mute">CLABE Interbancaria (18 dígitos):</span>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <strong id="speiClabeText" style="font-family:monospace; font-size:1rem; color:var(--primary);">012180001234567895</strong>
+              <button type="button" class="ghost" style="padding:4px 10px; font-size:0.76rem;" onclick="copyClabe()">📋 Copiar</button>
+            </div>
+          </div>
+          <div class="spei-row">
+            <span class="mute">Concepto / Referencia de Orden:</span>
+            <strong id="speiRefCode" style="font-family:monospace;">DMD-2026-ORD</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- PESTAÑA C: LINK DE PAGO / WHATSAPP -->
+      <div id="pane-link" class="pay-method-pane">
+        <div class="spei-box" style="background:var(--primary-light); border-color:#bfdbfe;">
+          <h4 style="margin-bottom:6px; color:var(--primary);">Generación de Link de Cobro o Atención Personalizada</h4>
+          <p style="font-size:0.9rem; color:var(--text-secondary);">
+            Al confirmar tu orden, generaremos tu folio oficial de proyecto y abriremos comunicación directa con el área financiera de DMD para enviarte un link de Mercado Pago, PayPal o acordar tu pago directamente.
+          </p>
+        </div>
+      </div>
+
+      <label class="f" style="margin-top:10px;">Notas o especificaciones adicionales del proyecto (Opcional)
+        <textarea id="chkNotes" rows="2" placeholder="Indica colores, nombre de dominio deseado o detalles para el equipo..."></textarea>
+      </label>
+
+      <button type="submit" id="submitPayBtn" class="btn" style="width:100%; padding:15px; font-size:1.05rem; margin-top:8px;">
+        🔒 Procesar Pago y Generar Orden Oficial →
+      </button>
+    </form>
+
+    <!-- COLUMNA DERECHA: RESUMEN FINANCIERO -->
+    <aside class="card sticky-aside" style="background:var(--bg-alt);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid var(--line);">
+        <h3 style="margin:0;">Resumen del Pedido</h3>
+        <a href="servicios.html" style="font-size:0.82rem; color:var(--primary); font-weight:600;">Editar selección</a>
+      </div>
+
+      <div id="checkoutItems" style="margin-bottom:16px;"></div>
+
+      <!-- Agregar rápido si está vacío -->
+      <div id="quickAddEmptyBox" class="hidden" style="margin-bottom:16px; padding:12px; background:#fff; border:1px dashed var(--line-strong); border-radius:8px;">
+        <div style="font-size:0.8rem; font-weight:600; margin-bottom:8px;">Agrega un servicio rápido para probar la pasarela:</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="ghost" style="padding:6px 10px; font-size:0.78rem;" onclick="addItemToCart('Página Web Profesional', 699); renderCheckoutSummary();">+ Página Web ($699)</button>
+          <button type="button" class="ghost" style="padding:6px 10px; font-size:0.78rem;" onclick="addItemToCart('Identity Dream Pack', 1499); renderCheckoutSummary();">+ Identity Pack ($1,499)</button>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--line); padding-top:14px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem; color:var(--mute);">
+          <span>Subtotal Servicios:</span>
+          <span id="chkSubtotal">$0 MXN</span>
+        </div>
+        <div id="chkDiscountRow" class="hidden" style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem; color:var(--success);">
+          <span>Descuento Aplicado:</span>
+          <span id="chkDiscountVal">-$0 MXN</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.95rem; font-weight:600; color:var(--text);">
+          <span>Total del Proyecto:</span>
+          <strong id="chkTotalProject">$0 MXN</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:12px; padding:14px; background:#ffffff; border:1px solid var(--primary); border-radius:8px;">
+          <div>
+            <span style="font-weight:700; display:block; font-size:0.92rem;">Monto a cubrir hoy:</span>
+            <small class="mute" id="chkModeLabel">Esquema Anticipo 50%</small>
+          </div>
+          <strong id="chkPayNow" style="font-size:1.55rem; color:var(--primary); white-space:nowrap;">$0 MXN</strong>
+        </div>
+      </div>
+
+      <div style="margin-top:18px; font-size:0.8rem; color:var(--mute); display:flex; flex-direction:column; gap:6px;">
+        <div>✓ Emisión de recibo digital verificable al instante</div>
+        <div>✓ Acceso automático a tu Portal de Cliente DMD</div>
+        <div>✓ Garantía de satisfacción y revisiones incluidas</div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- MODAL DE ORDEN CONFIRMADA Y RECIBO IMPRIMIBLE -->
+<div class="receipt-modal-backdrop" id="receiptModal">
+  <div class="receipt-card">
+    <div style="text-align:center; margin-bottom:20px;">
+      <div style="width:52px; height:52px; border-radius:50%; background:var(--success-bg); color:var(--success); display:flex; align-items:center; justify-content:center; font-size:1.6rem; font-weight:700; margin:0 auto 12px;">✓</div>
+      <span class="eyebrow" style="margin:0;">Comprobante Oficial de Orden</span>
+      <h2 style="font-size:1.6rem; margin:4px 0;">¡Pedido Confirmado con Éxito!</h2>
+      <p class="mute" style="font-size:0.88rem;">Tu proyecto ha sido registrado en el sistema de Digital Majfa Dreams.</p>
+    </div>
+
+    <div style="background:var(--bg-alt); border:1px solid var(--line); border-radius:8px; padding:16px; margin-bottom:20px; font-size:0.88rem;">
+      <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--line);">
+        <span class="mute">Folio de Orden:</span>
+        <strong id="recFolio" style="color:var(--primary);">#DMD-2026-000</strong>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--line);">
+        <span class="mute">Cliente / Empresa:</span>
+        <strong id="recClient">—</strong>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--line);">
+        <span class="mute">Método Seleccionado:</span>
+        <strong id="recMethod">—</strong>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:6px 0;">
+        <span class="mute">Importe Cubierto Hoy:</span>
+        <strong id="recAmount" style="color:var(--success); font-size:1.05rem;">$0 MXN</strong>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <a id="recGoPortalBtn" href="portal-cliente.html" class="btn" style="width:100%;">Ir a mi Portal de Cliente y Ver Proyecto →</a>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <button type="button" class="ghost" onclick="window.print()">🖨️ Imprimir Recibo PDF</button>
+        <a id="recWhatsAppBtn" href="#" target="_blank" class="ghost">💬 Notificar en WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentPayTab = "card";
+
+  function switchPayTab(tabId, btnEl, methodLabel) {
+    currentPayTab = tabId;
+    document.getElementById("chkMethod").value = methodLabel;
+    document.querySelectorAll(".pay-tab-btn").forEach(b => b.classList.remove("active"));
+    btnEl.classList.add("active");
+    document.querySelectorAll(".pay-method-pane").forEach(p => p.classList.remove("active"));
+    document.getElementById("pane-" + tabId).classList.add("active");
+  }
+
+  function syncCardHolder(val) {
+    document.getElementById("ccHolderPreview").textContent = (val.trim() || "NOMBRE DEL TITULAR").toUpperCase();
+  }
+
+  function formatCardNumber(input) {
+    let digits = input.value.replace(/\D/g, "").substring(0, 16);
+    let formatted = digits.replace(/(\d{4})(?=\d)/g, "$1 ");
+    input.value = formatted;
+    document.getElementById("ccNumberPreview").textContent = formatted || "•••• •••• •••• 4242";
+
+    const brandEl = document.getElementById("ccBrandLabel");
+    if (digits.startsWith("4")) brandEl.textContent = "VISA";
+    else if (digits.startsWith("5")) brandEl.textContent = "MASTERCARD";
+    else if (digits.startsWith("3")) brandEl.textContent = "AMEX";
+    else brandEl.textContent = "TARJETA CORPORATIVA";
+  }
+
+  function formatCardExp(input) {
+    let digits = input.value.replace(/\D/g, "").substring(0, 4);
+    if (digits.length >= 3) {
+      input.value = digits.substring(0, 2) + "/" + digits.substring(2, 4);
+    } else {
+      input.value = digits;
+    }
+    document.getElementById("ccExpPreview").textContent = input.value || "12/28";
+  }
+
+  function copyClabe() {
+    const clabe = document.getElementById("speiClabeText").textContent;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(clabe);
+    }
+    showToast("CLABE Interbancaria copiada al portapapeles");
+  }
+
+  function renderCheckoutSummary() {
+    const cart = getCart();
+    const container = document.getElementById("checkoutItems");
+    const emptyBox = document.getElementById("quickAddEmptyBox");
+
+    if (cart.length === 0) {
+      container.innerHTML = `<p class="mute" style="font-size:0.9rem;">Tu cotización aún no tiene servicios seleccionados.</p>`;
+      emptyBox.classList.remove("hidden");
+      document.getElementById("chkSubtotal").textContent = "$0 MXN";
+      document.getElementById("chkTotalProject").textContent = "$0 MXN";
+      document.getElementById("chkPayNow").textContent = "$0 MXN";
+      return;
+    }
+    emptyBox.classList.add("hidden");
+
+    const couponDisc = safeGet("dmd_discount") === "0.10" ? 0.10 : 0;
+    const mode = document.querySelector('input[name="payMode"]:checked').value;
+    const fullPayDisc = mode === "full" ? 0.05 : 0;
+    const totalDiscRate = couponDisc + fullPayDisc;
+
+    const subtotal = cart.reduce((a, b) => a + Number(b.p), 0);
+    const discAmount = Math.round(subtotal * totalDiscRate);
+    const total = subtotal - discAmount;
+    const payNow = mode === "advance" ? Math.round(total / 2) : total;
+
+    container.innerHTML = cart.map(i => `<div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--line); font-size:0.88rem;">
+      <div>
+        <div style="font-weight:600;">${i.n}</div>
+        <small style="color:var(--primary); font-weight:600;">$${Number(i.p).toLocaleString("es-MX")} MXN</small>
+      </div>
+      <button type="button" class="cart-remove-btn" onclick="removeItemFromCart(${i.id})">✕</button>
+    </div>`).join("");
+
+    document.getElementById("chkSubtotal").textContent = `$${subtotal.toLocaleString("es-MX")} MXN`;
+    const discRow = document.getElementById("chkDiscountRow");
+    if (discAmount > 0) {
+      discRow.classList.remove("hidden");
+      document.getElementById("chkDiscountVal").textContent = `-$${discAmount.toLocaleString("es-MX")} MXN`;
+    } else {
+      discRow.classList.add("hidden");
+    }
+
+    document.getElementById("chkTotalProject").textContent = `$${total.toLocaleString("es-MX")} MXN`;
+    document.getElementById("chkPayNow").textContent = `$${payNow.toLocaleString("es-MX")} MXN`;
+    document.getElementById("chkModeLabel").textContent = mode === "advance" ? "Anticipo del 50% para iniciar" : "Pago Total con 5% de descuento";
+  }
+
+  function completeOrder(e) {
+    e.preventDefault();
+    const cart = getCart();
+    if (cart.length === 0) {
+      showToast("Agrega al menos un servicio para procesar tu orden");
+      return;
+    }
+
+    const btn = document.getElementById("submitPayBtn");
+    btn.disabled = true;
+    btn.textContent = "Verificando y procesando orden segura...";
+
+    const couponDisc = safeGet("dmd_discount") === "0.10" ? 0.10 : 0;
+    const mode = document.querySelector('input[name="payMode"]:checked').value;
+    const totalDiscRate = couponDisc + (mode === "full" ? 0.05 : 0);
+    const subtotal = cart.reduce((a, b) => a + Number(b.p), 0);
+    const total = subtotal - Math.round(subtotal * totalDiscRate);
+    const payNow = mode === "advance" ? Math.round(total / 2) : total;
+    const folio = "#DMD-2026-" + String(Math.floor(100 + Math.random() * 900));
+
+    const clientName = document.getElementById("chkCompany").value.trim() || document.getElementById("chkName").value.trim();
+    const clientEmail = document.getElementById("chkEmail").value.trim();
+    const method = document.getElementById("chkMethod").value;
+
+    const order = {
+      id: folio,
+      fecha: new Date().toLocaleDateString("es-MX"),
+      cliente: clientName,
+      email: clientEmail,
+      metodo: method,
+      estado: mode === "advance" ? "Anticipo 50% Pagado" : "Liquidado 100%",
+      servicios: cart,
+      total: total,
+      pagadoHoy: payNow
+    };
+
+    setTimeout(() => {
+      const compras = JSON.parse(safeGet("dmd_compras") || "[]");
+      compras.unshift(order);
+      safeSet("dmd_compras", JSON.stringify(compras));
+      safeSet("dmd_cliente", "true");
+      safeSet("dmd_cliente_nombre", clientName);
+      safeSet("dmd_cliente_email", clientEmail);
+      safeSet("dmd_is_luna_demo", "false");
+      saveCart([]);
+      safeRemove("dmd_discount");
+
+      // Mostrar recibo oficial
+      document.getElementById("recFolio").textContent = folio;
+      document.getElementById("recClient").textContent = clientName;
+      document.getElementById("recMethod").textContent = method;
+      document.getElementById("recAmount").textContent = `$${payNow.toLocaleString("es-MX")} MXN`;
+      document.getElementById("recGoPortalBtn").href = "portal-cliente.html?tab=facturacion&nuevo=" + encodeURIComponent(folio);
+
+      const waMsg = `Hola equipo DMD, acabo de confirmar mi orden *${folio}* a nombre de *${clientName}* por *$${payNow.toLocaleString("es-MX")} MXN* mediante *${method}*.`;
+      document.getElementById("recWhatsAppBtn").href = `https://wa.me/?text=${encodeURIComponent(waMsg)}`;
+
+      document.getElementById("receiptModal").classList.add("open");
+      btn.disabled = false;
+      btn.textContent = "🔒 Procesar Pago y Generar Orden Oficial →";
+    }, 650);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("speiRefCode").textContent = "DMD-" + Math.floor(1000 + Math.random() * 9000);
+    // Prellenar si el usuario ya inició sesión
+    if (safeGet("dmd_cliente") === "true") {
+      const n = safeGet("dmd_cliente_nombre");
+      const em = safeGet("dmd_cliente_email");
+      if (n) {
+        document.getElementById("chkName").value = n;
+        syncCardHolder(n);
+      }
+      if (em && em.includes("@")) {
+        document.getElementById("chkEmail").value = em;
+      }
+    }
+    renderCheckoutSummary();
+  });
+</script>
+
+<!-- WIDGET DE ASISTENCIA EJECUTIVA -->
+<div class="chat-widget">
+  <button class="chat-btn" id="chatBtn" aria-label="Abrir asistente ejecutivo">
+    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <span>Asesor en Línea</span>
+  </button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div>
+        <strong style="display:block; font-size:0.95rem;">Atención a Clientes DMD</strong>
+        <span style="font-size:0.76rem; opacity:0.9;">Respuesta inmediata · Horario comercial</span>
+      </div>
+      <button class="ghost" id="chatClose" style="padding:4px 9px; border:none; background:rgba(255,255,255,0.15); color:#fff;">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg bot">Bienvenido a <strong>Digital Majfa Dreams</strong>. ¿En qué podemos asesorarte hoy para impulsar tu negocio?</div>
+      <div class="chat-opts" id="chatOpts">
+        <button onclick="sendUserMsg('Quiero cotizar servicios')">Cotizar servicios individuales</button>
+        <button onclick="sendUserMsg('Busco un paquete integral')">Ver paquetes empresariales</button>
+        <button onclick="sendUserMsg('Consultar tiempos de entrega')">Tiempos de entrega y garantías</button>
+        <button onclick="sendUserMsg('Hablar con un asesor')">Contactar a un asesor humano</button>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="Escribe tu consulta..." onkeypress="if(event.key==='Enter') sendCustomMsg()">
+      <button class="btn" onclick="sendCustomMsg()" style="padding:0 14px;">Enviar</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <img src="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg" alt="DMD">
+          <span>Digital Majfa Dreams</span>
+        </a>
+        <p style="color:var(--mute); font-size:0.88rem; margin-bottom:16px; max-width:300px;">
+          Agencia especializada en desarrollo web, identidad corporativa, diseño editorial y ecosistemas digitales para empresas y comercios en México.
+        </p>
+        <div style="font-size:0.84rem; color:var(--text-secondary);">
+          <div><strong>Ubicación:</strong> Estado de México, México</div>
+          <div><strong>Atención:</strong> Lunes a Sábado · 9:00 – 19:00 hrs</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="web.html">Páginas Web Profesionales</a></li>
+          <li><a href="logo.html">Diseño de Logotipos</a></li>
+          <li><a href="identidad.html">Colores e Identidad Visual</a></li>
+          <li><a href="tarjetas.html">Tarjetas de Presentación</a></li>
+          <li><a href="banners.html">Banners y Portadas</a></li>
+          <li><a href="enlaces.html">Ecosistema Bio Links</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Soluciones y Planes</h4>
+        <ul>
+          <li><a href="paquetes.html">Identity Dream Pack</a></li>
+          <li><a href="paquetes.html">Social Media Visual Pack</a></li>
+          <li><a href="paquetes.html">Layout &amp; Editorial B2B</a></li>
+          <li><a href="paquetes.html">Plan Impulso Web + Marca</a></li>
+          <li><a href="dominios.html">Registro de Dominios (.com / .mx)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Herramientas y Portal</h4>
+        <ul>
+          <li><a href="servicios.html">Cotizador en Tiempo Real</a></li>
+          <li><a href="boceto.html">Estudio de Marca Interactivo</a></li>
+          <li><a href="checkout.html">Confirmación de Pedido</a></li>
+          <li><a href="login.html">Acceso Portal de Clientes</a></li>
+          <li><a href="admin.html">DMD Agency OS (Admin)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Empresa y Respaldo</h4>
+        <ul>
+          <li><a href="index.html#proceso">Metodología de Trabajo</a></li>
+          <li><a href="index.html#portafolio">Casos de Éxito (Meseros Luna)</a></li>
+          <li><a href="index.html#equipo">Equipo Directivo DMD</a></li>
+          <li><a href="index.html#faq">Preguntas Frecuentes</a></li>
+          <li><a href="index.html#contacto">Contacto Directo</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Digital Majfa Dreams (DMD). Todos los derechos reservados. Precios expresados en Pesos Mexicanos (MXN).</div>
+      <div style="display:flex; gap:20px;">
+        <a href="index.html#faq">Garantía de Satisfacción</a>
+        <a href="servicios.html">Transparencia de Precios</a>
+        <a href="login.html">Privacidad y Seguridad</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

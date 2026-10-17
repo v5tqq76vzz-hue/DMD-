@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arquitecto Web IA y Simulador 3D de Plantillas | Digital Majfa Dreams</title>
+<link rel="icon" href="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Majfa Dreams (DMD)">
+<meta property="og:title" content="Digital Majfa Dreams | Desarrollo Web, Identidad Visual y Marketing Digital">
+<meta property="og:description" content="Páginas web profesionales, diseño de logotipos, simulador con IA en 3D y dominios oficiales para empresas. Precios transparentes desde $150 MXN.">
+<meta property="og:image" content="og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Majfa Dreams (DMD) | Agencia Digital Corporativa">
+<meta name="twitter:description" content="Construimos la presencia digital e identidad corporativa de tu empresa. Prueba gratis nuestro Arquitecto Web IA 3D.">
+<meta name="twitter:image" content="og-preview.png">
+<meta name="theme-color" content="#0067b8">
+<link rel="stylesheet" href="style.css">
+<style>
+  .boceto-layout {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .controls-panel {
+    position: sticky;
+    top: 84px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* =========================================================
+     CHAT DEL ARQUITECTO WEB IA (CONVERSACIONAL)
+     ========================================================= */
+  .ai-architect-card {
+    background: #ffffff;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .ai-arch-header {
+    background: linear-gradient(135deg, #0067b8 0%, #4338ca 100%);
+    color: #ffffff;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ai-arch-messages {
+    background: #f8fafc;
+    padding: 14px;
+    max-height: 230px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ai-bubble {
+    padding: 10px 13px;
+    border-radius: 10px;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    max-width: 92%;
+  }
+  .ai-bubble.bot {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    color: var(--text);
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+  }
+  .ai-bubble.user {
+    background: var(--primary);
+    color: #ffffff;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+    font-weight: 500;
+  }
+  .ai-quick-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--line);
+  }
+  .ai-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 99px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid rgba(0, 103, 184, 0.2);
+    cursor: pointer;
+  }
+  .ai-chip:hover {
+    background: var(--primary);
+    color: #ffffff;
+  }
+  .ai-prompt-bar {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+    background: #ffffff;
+  }
+  .ai-prompt-bar input {
+    flex: 1;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 0.86rem;
+    outline: none;
+  }
+  .ai-prompt-bar input:focus {
+    border-color: var(--primary);
+  }
+
+  /* Selector de Plantillas de Internet */
+  .template-pills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .tpl-card-btn {
+    padding: 9px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    background: var(--bg-alt);
+    text-align: left;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tpl-card-btn strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.82rem;
+  }
+  .tpl-card-btn span {
+    color: var(--mute);
+    font-size: 0.72rem;
+  }
+  .tpl-card-btn.active, .tpl-card-btn:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+  }
+  .tpl-card-btn.active strong {
+    color: var(--primary);
+  }
+
+  .color-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  input[type="color"] {
+    -webkit-appearance: none;
+    border: 1px solid var(--line-strong);
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: none;
+    padding: 2px;
+  }
+  .preset-swatches {
+    display: flex;
+    gap: 7px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .swatch-btn {
+    width: 25px;
+    height: 25px;
+    border-radius: 6px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--line-strong);
+    cursor: pointer;
+  }
+
+  /* =========================================================
+     ESCENARIO DE PERSPECTIVA 3D (STUDIO 3D VIEWPORT)
+     ========================================================= */
+  .studio-stage-wrapper {
+    background: radial-gradient(circle at 50% 25%, #ffffff 0%, #eef2f6 100%);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  .perspective-toolbar {
+    background: #ffffff;
+    border-bottom: 1px solid var(--line);
+    padding: 12px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .persp-btns {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .persp-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 6px;
+    background: var(--bg-alt);
+    color: var(--text-secondary);
+    border: 1px solid var(--line);
+  }
+  .persp-btn.active, .persp-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  .sliders-bar {
+    background: #f8fafc;
+    border-bottom: 1px solid var(--line);
+    padding: 9px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+  .sliders-bar label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+  }
+  .sliders-bar input[type="range"] {
+    width: 90px;
+    accent-color: var(--primary);
+    cursor: pointer;
+  }
+
+  #mockup-container {
+    --brand-color: #0067b8;
+    --brand-secondary: #1e3a8a;
+    --brand-font: "Segoe UI", sans-serif;
+    perspective: 1350px;
+    min-height: 600px;
+    padding: 40px 28px 54px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .studio-floor-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+    background-size: 36px 36px;
+    pointer-events: none;
+  }
+
+  .scene-3d-object {
+    width: 100%;
+    max-width: 800px;
+    transform-style: preserve-3d;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    z-index: 2;
+    font-family: var(--brand-font);
+  }
+
+  .floor-shadow {
+    width: 76%;
+    height: 26px;
+    background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.22) 0%, rgba(15, 23, 42, 0) 72%);
+    margin: 26px auto 0;
+    border-radius: 50%;
+    transition: transform 0.25s ease;
+    pointer-events: none;
+  }
+
+  .mockup-view { display: none; width: 100%; }
+  .mockup-view.active { display: block; }
+
+  .browser-mockup {
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: var(--shadow-3d);
+  }
+  .browser-header {
+    background: #f1f5f9;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+  }
+  .browser-dots { display: flex; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .browser-url {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    color: var(--mute);
+    width: 58%;
+    text-align: center;
+  }
+  .ai-monogram {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--brand-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.88rem;
+    flex-shrink: 0;
+  }
+  .sync-logo-img {
+    max-height: 36px;
+    max-width: 130px;
+    display: none;
+    object-fit: contain;
+  }
+
+  /* Maquetas adicionales: Tarjetas y Smartphone 3D */
+  .cards-mockup {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+  .b-card {
+    width: 100%;
+    max-width: 430px;
+    height: 230px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 26px 30px;
+    box-shadow: var(--shadow-3d);
+  }
+  .b-card.front {
+    background: linear-gradient(135deg, var(--brand-color) 0%, var(--brand-secondary) 100%);
+    color: #ffffff;
+  }
+  .b-card.back {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+  }
+  .phone-3d-frame {
+    width: 340px;
+    margin: 0 auto;
+    background: #0f172a;
+    padding: 12px;
+    border-radius: 38px;
+    box-shadow: var(--shadow-3d), inset 0 0 0 2px #334155;
+  }
+  .phone-screen {
+    background: #ffffff;
+    border-radius: 28px;
+    overflow: hidden;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-notch {
+    width: 96px;
+    height: 18px;
+    background: #0f172a;
+    border-radius: 0 0 12px 12px;
+    margin: 0 auto;
+  }
+
+  .ai-insight-bar {
+    background: #ffffff;
+    border-top: 1px solid var(--line);
+    padding: 14px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 980px) {
+    .boceto-layout { grid-template-columns: 1fr; }
+    .controls-panel { position: static; }
+  }
+</style>
+</head>
+<body>
+<div class="ms-color-strip"></div>
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <div><strong>Digital Majfa Dreams (DMD)</strong> · Soluciones Digitales, Diseño Corporativo y Desarrollo Web para Empresas</div>
+    <div class="topbar-links">
+      <span>Atención Ejecutiva: Lun–Sáb 9:00 a 19:00 hrs</span>
+      <a href="servicios.html">Cotizador en Línea</a>
+      <a href="portal-cliente.html">Soporte a Clientes</a>
+    </div>
+  </div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="wrap navin">
+    <a class="brand" href="index.html">
+      <img src="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg" alt="DMD Logo">
+      <div>
+        <span>Digital Majfa Dreams</span>
+        <small class="brand-sub">Agencia Digital &amp; Diseño Corporativo</small>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰ <span class="menu-label">Menú</span></button>
+    <div class="links" id="navLinks">
+      <a href="index.html" class="">Inicio</a>
+      <a href="servicios.html" class="">Servicios</a>
+      <a href="paquetes.html" class="">Paquetes</a>
+      <a href="dominios.html" class="">Dominios</a>
+      <a href="boceto.html" class="on">Simulador</a>
+      <a href="index.html#portafolio">Portafolio</a>
+      <a href="index.html#contacto">Contacto</a>
+    </div>
+    <div class="acts2">
+      <button type="button" class="theme-toggle-btn" onclick="toggleDarkMode()" title="Cambiar entre Modo Claro y Modo Noche">
+        <span>🌙</span> <span class="theme-label">Modo Noche</span>
+      </button>
+      <a class="cart-pill" id="pill" href="servicios.html#aside" title="Ver servicios seleccionados">
+        <span class="cart-label">Cotización</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a class="btn" id="portalBtn" href="login.html" style="padding: 9px 16px; font-size:0.88rem;">Iniciar Sesión</a>
+      <a class="ghost" id="adminBtn" href="admin.html" style="display:none; padding: 9px 14px; font-size:0.86rem; border-color:var(--primary); color:var(--primary);">Panel Admin</a>
+    </div>
+  </div>
+</nav>
+<script src="script.js"></script>
+
+<section class="hero-band" style="padding: 36px 0 28px; text-align:center;">
+  <div class="wrap">
+    <span class="eyebrow">Arquitecto Web con Inteligencia Artificial + Perspectiva 3D</span>
+    <h1>Dile a nuestra IA qué página te gustaría y visualízala en vivo</h1>
+    <p class="sub" style="margin: 0 auto;">
+      Describe tu negocio en el chat de IA o elige un estilo. El sistema seleccionará la mejor arquitectura entre plantillas líderes de internet (estilo Microsoft, Shopify, Apple, OpenTable o Instagram) y armará tu boceto interactivo en 3D.
+    </p>
+  </div>
+</section>
+
+<div class="wrap band" style="padding-top:28px;">
+  <div class="boceto-layout">
+    <!-- COLUMNA IZQUIERDA: CHAT ARQUITECTO IA + PERSONALIZACIÓN -->
+    <div class="controls-panel">
+      <!-- 1. ASISTENTE CONVERSACIONAL IA -->
+      <div class="ai-architect-card">
+        <div class="ai-arch-header">
+          <div>
+            <strong style="font-size:0.95rem; display:block;">🤖 Arquitecto Web IA · DMD</strong>
+            <span style="font-size:0.74rem; opacity:0.9;">Generador de bocetos basado en plantillas de internet</span>
+          </div>
+          <span style="background:rgba(255,255,255,0.2); padding:3px 9px; border-radius:99px; font-size:0.7rem; font-weight:700;">EN LÍNEA</span>
+        </div>
+
+        <div class="ai-arch-messages" id="aiChatMessages">
+          <div class="ai-bubble bot">
+            ¡Hola! 👋 Soy la IA de diseño de <strong>DMD</strong>. Cuéntame: <strong>¿qué tipo de página web te gustaría, a qué se dedica tu negocio y qué estilo buscas?</strong><br><br>
+            <small style="color:var(--mute);">Ejemplo: <em>"Quiero una tienda en línea para vender calzado deportivo"</em> o <em>"Una página elegante para mi servicio de banquetes y eventos"</em>.</small>
+          </div>
+        </div>
+
+        <div class="ai-quick-chips">
+          <button type="button" class="ai-chip" onclick="sendAIPrompt('Quiero una tienda online estilo Shopify con catálogo y carrito de compras')">🛍️ Tienda Online (Shopify)</button>
+          <button type="button" class="ai-chip" onclick="sendAIPrompt('Busco una página corporativa estilo Microsoft para mi empresa de servicios')">🏢 Corporativa (Microsoft)</button>
+          <button type="button" class="ai-chip" onclick="sendAIPrompt('Necesito una página para restaurante o eventos con sistema de reservaciones')">🍽️ Eventos y Reservas (OpenTable)</button>
+          <button type="button" class="ai-chip" onclick="sendAIPrompt('Quiero una página minimalista estilo Apple para mostrar un producto premium')">✨ Minimalista (Apple/Stripe)</button>
+          <button type="button" class="ai-chip" onclick="sendAIPrompt('Me gustaría una página para clínica médica o dental con agenda de citas')">⚕️ Clínica con Citas (Doctoralia)</button>
+          <button type="button" class="ai-chip" onclick="sendAIPrompt('Quiero un portafolio visual estilo Instagram para mi marca personal')">📸 Galería Visual (Instagram)</button>
+        </div>
+
+        <form class="ai-prompt-bar" onsubmit="handleAIPromptSubmit(event)">
+          <input type="text" id="aiPromptInput" placeholder="Describe qué página te gustaría crear...">
+          <button type="submit" class="btn-ai" style="padding:0 14px; font-size:0.84rem;">Generar ✨</button>
+        </form>
+      </div>
+
+      <!-- 2. SELECTOR DIRECTO DE PLANTILLAS DE INTERNET Y AJUSTES -->
+      <div class="card" style="padding:20px;">
+        <div style="font-size:0.8rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;">
+          🌐 Plantillas de Internet integradas (Clic para cambiar)
+        </div>
+        <div class="template-pills-grid">
+          <button type="button" class="tpl-card-btn active" id="tplbtn-microsoft" onclick="selectInternetTemplate('microsoft')">
+            <strong>🏢 Microsoft Fluent</strong>
+            <span>Corporativo B2B y Servicios</span>
+          </button>
+          <button type="button" class="tpl-card-btn" id="tplbtn-shopify" onclick="selectInternetTemplate('shopify')">
+            <strong>🛍️ Shopify Store</strong>
+            <span>E-Commerce y Catálogo</span>
+          </button>
+          <button type="button" class="tpl-card-btn" id="tplbtn-apple" onclick="selectInternetTemplate('apple')">
+            <strong>✨ Apple / Stripe</strong>
+            <span>Minimalista y Tecnológico</span>
+          </button>
+          <button type="button" class="tpl-card-btn" id="tplbtn-opentable" onclick="selectInternetTemplate('opentable')">
+            <strong>🍽️ OpenTable / Eventos</strong>
+            <span>Reservas, Banquetes y Menú</span>
+          </button>
+          <button type="button" class="tpl-card-btn" id="tplbtn-clinic" onclick="selectInternetTemplate('clinic')">
+            <strong>⚕️ Doctoralia / Salud</strong>
+            <span>Clínicas y Agenda Médica</span>
+          </button>
+          <button type="button" class="tpl-card-btn" id="tplbtn-instagram" onclick="selectInternetTemplate('instagram')">
+            <strong>📸 Instagram Hub</strong>
+            <span>Portafolio y Creadores</span>
+          </button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+          <label class="f" style="margin:0;">
+            <span style="font-size:0.8rem;">Nombre de tu Marca</span>
+            <input type="text" id="c-name" value="Corporativo Reforma" style="padding:8px 10px; font-size:0.86rem;">
+          </label>
+          <label class="f" style="margin:0;">
+            <span style="font-size:0.8rem;">Formato del Boceto</span>
+            <select id="v-selector" style="padding:8px 10px; font-size:0.86rem;">
+              <option value="web">💻 Página Web (Plantilla)</option>
+              <option value="tarjetas">📇 Tarjetas 3D</option>
+              <option value="redes">📱 Redes Sociales 3D</option>
+              <option value="enlaces">🔗 Bio Links 3D</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="f" style="margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:0.8rem;">Eslogan o Titular Principal</span>
+            <button type="button" onclick="generateAICopywriting()" style="background:transparent; color:var(--primary); font-size:0.75rem; font-weight:700;">✍️ Redactar otro con IA</button>
+          </div>
+          <input type="text" id="c-desc" value="Soluciones estratégicas y tecnología para hacer crecer tu negocio." style="padding:8px 10px; font-size:0.86rem;">
+        </label>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px;">
+          <div>
+            <span style="font-size:0.8rem; font-weight:500; color:var(--text-secondary);">Color Corporativo</span>
+            <div class="color-picker-wrapper">
+              <input type="color" id="c-color" value="#0067b8">
+              <span id="color-hex" style="font-family:monospace; font-size:0.84rem; font-weight:600;">#0067b8</span>
+            </div>
+          </div>
+          <div>
+            <span style="font-size:0.8rem; font-weight:500; color:var(--text-secondary);">Paletas Rápidas</span>
+            <div class="preset-swatches">
+              <button type="button" class="swatch-btn" style="background:#0067b8;" onclick="setPresetColor('#0067b8', '#1e3a8a')"></button>
+              <button type="button" class="swatch-btn" style="background:#0f172a;" onclick="setPresetColor('#0f172a', '#334155')"></button>
+              <button type="button" class="swatch-btn" style="background:#059669;" onclick="setPresetColor('#059669', '#065f46')"></button>
+              <button type="button" class="swatch-btn" style="background:#4338ca;" onclick="setPresetColor('#4338ca', '#312e81')"></button>
+              <button type="button" class="swatch-btn" style="background:#b91c1c;" onclick="setPresetColor('#b91c1c', '#7f1d1d')"></button>
+              <button type="button" class="swatch-btn" style="background:#b45309;" onclick="setPresetColor('#b45309', '#78350f')"></button>
+            </div>
+          </div>
+        </div>
+
+        <label class="f" style="margin-bottom:14px;">
+          <span style="font-size:0.8rem;">Subir Logotipo Propio (Opcional)</span>
+          <input type="file" id="c-logo" accept="image/*" style="padding:6px; font-size:0.78rem; border:1px dashed var(--line-strong); border-radius:6px;">
+        </label>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <button class="btn" style="padding:10px; font-size:0.86rem;" onclick="cotizarBocetoDirecto()">Cotizar Este Boceto →</button>
+          <button class="ghost" style="padding:10px; font-size:0.86rem;" onclick="enviarIdea()">Enviar a DMD 💬</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMNA DERECHA: ESCENARIO DE PERSPECTIVA 3D Y RENDERIZADO DE PLANTILLAS -->
+    <div class="studio-stage-wrapper">
+      <div class="perspective-toolbar">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:0.82rem; font-weight:700; color:var(--text);">📐 Perspectiva 3D:</span>
+          <span class="pill" id="activeTemplateBadge" style="font-size:0.74rem; padding:3px 10px;">Plantilla: Microsoft Fluent Enterprise</span>
+        </div>
+        <div class="persp-btns">
+          <button type="button" class="persp-btn active" id="dev-pc" onclick="setDeviceViewport('100%', 'dev-pc')">🖥️ PC / Laptop</button>
+          <button type="button" class="persp-btn" id="dev-tab" onclick="setDeviceViewport('620px', 'dev-tab')">📱 Tableta</button>
+          <button type="button" class="persp-btn" id="dev-mob" onclick="setDeviceViewport('375px', 'dev-mob')">📲 Celular</button>
+          <span style="width:1px; background:var(--line); margin:0 4px;"></span>
+          <button type="button" class="persp-btn" id="pbtn-flat" onclick="setPerspective(0, 0, 1, 'pbtn-flat')">2D</button>
+          <button type="button" class="persp-btn active" id="pbtn-iso" onclick="setPerspective(-14, 7, 0.98, 'pbtn-iso')">3D Isométrica</button>
+          <button type="button" class="persp-btn" id="pbtn-top" onclick="setPerspective(-4, 16, 0.96, 'pbtn-top')">3D Keynote</button>
+        </div>
+      </div>
+
+      <div class="sliders-bar">
+        <label>Giro 3D (Y): <input type="range" id="rotYSlider" min="-32" max="32" value="-15" oninput="applyManual3D()"> <span id="rotYVal">-15°</span></label>
+        <label>Inclinación (X): <input type="range" id="rotXSlider" min="-20" max="28" value="7" oninput="applyManual3D()"> <span id="rotXVal">7°</span></label>
+        <label>Zoom: <input type="range" id="scaleSlider" min="85" max="110" value="98" oninput="applyManual3D()"> <span id="scaleVal">98%</span></label>
+        <label style="margin-left:auto; cursor:pointer;">
+          <input type="checkbox" id="mouse3DToggle" checked> Perspectiva interactiva con mouse
+        </label>
+      </div>
+
+      <div id="mockup-container">
+        <div class="studio-floor-grid"></div>
+
+        <div class="scene-3d-object" id="scene3DObject">
+          <!-- VISTA 1: NAVEGADOR CON MOTOR DINÁMICO DE PLANTILLAS DE INTERNET -->
+          <div id="view-web" class="mockup-view active">
+            <div class="browser-mockup">
+              <div class="browser-header">
+                <div class="browser-dots">
+                  <div class="dot" style="background:#ef4444;"></div>
+                  <div class="dot" style="background:#f59e0b;"></div>
+                  <div class="dot" style="background:#10b981;"></div>
+                </div>
+                <div class="browser-url">🔒 https://www.<span id="sync-domain-url">corporativoreforma</span>.com.mx</div>
+                <div style="font-size:0.72rem; color:var(--success); font-weight:600;">Plantilla Verificada</div>
+              </div>
+
+              <!-- CONTENEDOR DINÁMICO DONDE LA IA RENDERIZA LA PLANTILLA DE INTERNET ELEGIDA -->
+              <div id="internetTemplateCanvas"></div>
+            </div>
+          </div>
+
+          <!-- VISTA 2: TARJETAS DE PRESENTACIÓN EN CAPAS 3D -->
+          <div id="view-tarjetas" class="mockup-view">
+            <div class="cards-mockup">
+              <div class="b-card front">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div class="ai-monogram sync-initials" style="background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4);">CR</div>
+                  <span style="font-size:0.72rem; letter-spacing:0.1em; opacity:0.85;">TARJETA EJECUTIVA · ANVERSO</span>
+                </div>
+                <div style="text-align:left; margin:auto 0;">
+                  <img class="sync-logo-img" src="" alt="Logo" style="max-height:54px; margin-bottom:8px;">
+                  <div class="sync-name" style="font-size:1.65rem; font-weight:700;">Corporativo Reforma</div>
+                  <div class="sync-desc" style="font-size:0.84rem; opacity:0.9; margin-top:4px;">Soluciones estratégicas y tecnología para hacer crecer tu negocio.</div>
+                </div>
+                <div style="font-size:0.75rem; opacity:0.8; display:flex; justify-content:space-between;">
+                  <span>www.corporativoreforma.com.mx</span>
+                  <span>México</span>
+                </div>
+              </div>
+
+              <div class="b-card back">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <div>
+                    <div class="sync-name" style="font-size:1.3rem; font-weight:700; color:var(--brand-color);">Corporativo Reforma</div>
+                    <div style="font-size:0.8rem; color:var(--mute); font-weight:600; margin-bottom:12px;">Dirección General &amp; Atención Comercial</div>
+                  </div>
+                  <svg width="52" height="52" viewBox="0 0 36 36" style="border:1px solid var(--line); padding:3px; border-radius:6px;">
+                    <rect x="2" y="2" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <rect x="5" y="5" width="4" height="4" fill="currentColor"/>
+                    <rect x="24" y="2" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <rect x="27" y="5" width="4" height="4" fill="currentColor"/>
+                    <rect x="2" y="24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <rect x="5" y="27" width="4" height="4" fill="currentColor"/>
+                    <rect x="15" y="15" width="6" height="6" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div style="font-size:0.82rem; color:var(--text-secondary); display:flex; flex-direction:column; gap:6px; border-top:1px solid var(--line); padding-top:12px;">
+                  <div>📞 Atención Ejecutiva por WhatsApp</div>
+                  <div>✉️ contacto@tuempresa.com.mx</div>
+                  <div>📍 México · Servicio Profesional</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VISTA 3: REDES SOCIALES SMARTPHONE 3D -->
+          <div id="view-redes" class="mockup-view">
+            <div class="phone-3d-frame">
+              <div class="phone-screen">
+                <div class="phone-notch"></div>
+                <div style="height:105px; background:linear-gradient(135deg, var(--brand-color), var(--brand-secondary)); margin-top:-18px;"></div>
+                <div style="padding:0 20px 20px; position:relative;">
+                  <div style="width:72px; height:72px; border-radius:50%; background:#fff; border:4px solid #fff; box-shadow:var(--shadow-sm); position:absolute; top:-36px; display:flex; align-items:center; justify-content:center;">
+                    <span class="sync-initials" style="font-weight:800; color:var(--brand-color); font-size:1.2rem;">CR</span>
+                  </div>
+                  <div style="margin-top:44px;">
+                    <div class="sync-name" style="font-size:1.15rem; font-weight:700;">Corporativo Reforma</div>
+                    <div style="font-size:0.75rem; color:var(--mute); margin-bottom:6px;">✓ Cuenta Oficial Verificada</div>
+                    <div class="sync-desc" style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:14px;">Soluciones estratégicas y tecnología para hacer crecer tu negocio.</div>
+                    <div style="display:flex; gap:8px; margin-bottom:14px;">
+                      <div style="background:var(--brand-color); color:#fff; padding:7px 12px; border-radius:6px; font-size:0.8rem; font-weight:600; flex:1; text-align:center;">Seguir</div>
+                      <div style="background:var(--bg-alt); border:1px solid var(--line-strong); padding:7px 12px; border-radius:6px; font-size:0.8rem; font-weight:600; flex:1; text-align:center;">Mensaje</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VISTA 4: BIO LINKS SMARTPHONE 3D -->
+          <div id="view-enlaces" class="mockup-view">
+            <div class="phone-3d-frame">
+              <div class="phone-screen" style="padding:20px; text-align:center;">
+                <div class="phone-notch" style="margin-top:-20px; margin-bottom:22px;"></div>
+                <div class="ai-monogram sync-initials" style="width:58px; height:58px; border-radius:50%; margin:0 auto 10px; font-size:1.2rem;">CR</div>
+                <div class="sync-name" style="font-weight:700; font-size:1.1rem;">Corporativo Reforma</div>
+                <div class="sync-desc" style="font-size:0.78rem; color:var(--mute); margin:4px 0 18px;">Soluciones estratégicas y tecnología.</div>
+                <div style="display:flex; flex-direction:column; gap:9px;">
+                  <div style="background:var(--brand-color); color:#fff; padding:11px; border-radius:8px; font-weight:600; font-size:0.84rem;">💬 Cotizar por WhatsApp</div>
+                  <div style="background:var(--bg-alt); border:1px solid var(--line-strong); padding:11px; border-radius:8px; font-weight:600; font-size:0.84rem;">🌐 Sitio Web Oficial</div>
+                  <div style="background:var(--bg-alt); border:1px solid var(--line-strong); padding:11px; border-radius:8px; font-weight:600; font-size:0.84rem;">📘 Catálogo Digital PDF</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="floor-shadow" id="floorShadow"></div>
+      </div>
+
+      <div class="ai-insight-bar">
+        <div>
+          <strong style="color:var(--primary);">🧠 Arquitectura aplicada por IA:</strong>
+          <span id="aiInsightText" style="color:var(--text-secondary);">Estructura inspirada en Microsoft.com (Hero corporativo dividido, métricas de respaldo y bloques modulares B2B).</span>
+        </div>
+        <span class="status-badge" id="aiRecommendedPack">Cotización Base: $699 MXN</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const mockupContainer = document.getElementById("mockup-container");
+  const scene3D = document.getElementById("scene3DObject");
+  const floorShadow = document.getElementById("floorShadow");
+  const inputName = document.getElementById("c-name");
+  const inputDesc = document.getElementById("c-desc");
+  const inputColor = document.getElementById("c-color");
+  const selector = document.getElementById("v-selector");
+
+  let currentTemplateKey = "microsoft";
+  let uploadedLogoDataUrl = "";
+
+  // ============================================================================
+  // BIBLIOTECA DE 6 PLANTILLAS REALES DE INTERNET PARA EL BOCETO EN VIVO
+  // ============================================================================
+  const INTERNET_TEMPLATES = {
+    microsoft: {
+      label: "Microsoft Fluent Enterprise",
+      color: "#0067b8",
+      secondary: "#1e3a8a",
+      defaultName: "Corporativo Reforma",
+      defaultDesc: "Soluciones empresariales, consultoría y tecnología de alto rendimiento para tu organización.",
+      insight: "Inspirada en Microsoft.com: navegación limpia, Hero ejecutivo dividido con panel de KPIs y tarjetas de soluciones B2B.",
+      pack: "Página Web Profesional ($699 MXN)",
+      render: (name, desc, initials, logoHtml) => `
+        <div class="tpl-nav-bar" style="display:flex; justify-content:space-between; align-items:center; padding:14px 26px; border-bottom:1px solid #e2e8f0; background:#fff;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            ${logoHtml}
+            <strong style="font-size:1.05rem; color:#0f172a;">${name}</strong>
+          </div>
+          <div class="tpl-nav-links" style="display:flex; gap:16px; font-size:0.78rem; color:#475569; font-weight:600; align-items:center;">
+            <span style="border-bottom:2px solid var(--brand-color); color:var(--brand-color); padding-bottom:2px;">Soluciones</span>
+            <span>Servicios</span>
+            <span>Casos de Éxito</span>
+            <span style="background:var(--brand-color); color:#fff; padding:6px 12px; border-radius:4px;">Contacto Ejecutivo</span>
+          </div>
+        </div>
+        <div class="tpl-hero-grid" style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:22px; padding:32px 26px; background:linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); align-items:center; text-align:left;">
+          <div>
+            <span style="display:inline-block; font-size:0.68rem; font-weight:700; color:var(--brand-color); background:#eff6ff; padding:3px 9px; border-radius:99px; margin-bottom:8px;">ESTÁNDAR EMPRESARIAL CERTIFICADO</span>
+            <h2 style="font-size:1.65rem; color:#0f172a; line-height:1.2; margin-bottom:10px;">${name}: excelencia para tu empresa</h2>
+            <p style="font-size:0.86rem; color:#475569; margin-bottom:16px;">${desc}</p>
+            <div style="display:flex; gap:8px;">
+              <button type="button" style="background:var(--brand-color); color:#fff; padding:9px 18px; border-radius:4px; font-size:0.8rem; font-weight:600;">Solicitar Propuesta →</button>
+              <button type="button" style="background:#fff; border:1px solid #cbd5e1; color:#0f172a; padding:9px 16px; border-radius:4px; font-size:0.8rem; font-weight:600;">Conocer Más</button>
+            </div>
+          </div>
+          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:16px; box-shadow:0 8px 20px rgba(0,0,0,0.05);">
+            <div style="font-size:0.72rem; font-weight:700; color:var(--brand-color); margin-bottom:8px;">INDICADORES DE IMPACTO</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
+                <strong style="font-size:1.1rem; color:var(--brand-color); display:block;">99.9%</strong>
+                <span style="font-size:0.68rem; color:#64748b;">Garantía de Servicio</span>
+              </div>
+              <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
+                <strong style="font-size:1.1rem; color:var(--brand-color); display:block;">24/7</strong>
+                <span style="font-size:0.68rem; color:#64748b;">Soporte Dedicado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tpl-3col-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; padding:0 26px 26px; background:#fff; text-align:left;">
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+            <strong style="font-size:0.82rem; color:#0f172a; display:block; margin-bottom:4px;">💼 Consultoría Integral</strong>
+            <span style="font-size:0.74rem; color:#64748b;">Atención a la medida de tus objetivos comerciales.</span>
+          </div>
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+            <strong style="font-size:0.82rem; color:#0f172a; display:block; margin-bottom:4px;">📊 Diagnóstico y Control</strong>
+            <span style="font-size:0.74rem; color:#64748b;">Reportes claros y seguimiento puntual.</span>
+          </div>
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+            <strong style="font-size:0.82rem; color:#0f172a; display:block; margin-bottom:4px;">🔒 Respaldo Garantizado</strong>
+            <span style="font-size:0.74rem; color:#64748b;">Contratos claros y atención por WhatsApp.</span>
+          </div>
+        </div>`
+    },
+
+    shopify: {
+      label: "Shopify E-Commerce Store",
+      color: "#b91c1c",
+      secondary: "#7f1d1d",
+      defaultName: "Boutique & Tienda Oficial",
+      defaultDesc: "Envíos a todo México en 24 horas. Compra segura con garantía de satisfacción.",
+      insight: "Inspirada en Shopify: barra superior de envío gratis, buscador comercial, carrito activo y catálogo de productos con calificación y botón de compra.",
+      pack: "Página Web + Tienda Online ($1,099 MXN)",
+      render: (name, desc, initials, logoHtml) => `
+        <div style="background:var(--brand-color); color:#fff; font-size:0.7rem; font-weight:700; text-align:center; padding:5px;">
+          🚚 ENVÍO GRATIS EN PEDIDOS MAYORES A $999 MXN · COMPRA 100% SEGURA
+        </div>
+        <div class="tpl-nav-bar" style="display:flex; justify-content:space-between; align-items:center; padding:12px 24px; border-bottom:1px solid #e2e8f0; background:#fff;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            ${logoHtml}
+            <strong style="font-size:1rem;">${name}</strong>
+          </div>
+          <div style="background:#f1f5f9; border:1px solid #cbd5e1; border-radius:99px; padding:4px 14px; font-size:0.74rem; color:#64748b; width:200px;">🔍 Buscar en el catálogo...</div>
+          <div style="font-size:0.78rem; font-weight:700; color:var(--brand-color); background:#fef2f2; padding:5px 12px; border-radius:99px; border:1px solid rgba(185,28,28,0.2);">🛒 Carrito (2)</div>
+        </div>
+        <div style="padding:22px 24px 16px; background:#f8fafc; text-align:left; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0;">
+          <div>
+            <span style="font-size:0.68rem; font-weight:700; color:var(--brand-color); text-transform:uppercase;">NUEVA COLECCIÓN 2026</span>
+            <h2 style="font-size:1.4rem; margin:2px 0 6px;">${name}</h2>
+            <p style="font-size:0.8rem; color:#475569; margin:0;">${desc}</p>
+          </div>
+          <button type="button" style="background:var(--brand-color); color:#fff; padding:9px 16px; border-radius:6px; font-size:0.78rem; font-weight:700; flex-shrink:0;">Ver Ofertas →</button>
+        </div>
+        <div class="tpl-3col-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; padding:18px 24px 24px; background:#fff; text-align:left;">
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:10px;">
+            <div style="height:68px; background:#f1f5f9; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin-bottom:8px;">📦</div>
+            <div style="font-size:0.7rem; color:#f59e0b;">★★★★★ (48)</div>
+            <strong style="font-size:0.8rem; display:block;">Producto Estrella Pro</strong>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+              <strong style="color:var(--brand-color); font-size:0.85rem;">$499 MXN</strong>
+              <span style="background:#0f172a; color:#fff; font-size:0.68rem; padding:3px 8px; border-radius:4px;">+ Comprar</span>
+            </div>
+          </div>
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:10px;">
+            <div style="height:68px; background:#f1f5f9; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin-bottom:8px;">🏷️</div>
+            <div style="font-size:0.7rem; color:#f59e0b;">★★★★★ (32)</div>
+            <strong style="font-size:0.8rem; display:block;">Edición Especial</strong>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+              <strong style="color:var(--brand-color); font-size:0.85rem;">$650 MXN</strong>
+              <span style="background:#0f172a; color:#fff; font-size:0.68rem; padding:3px 8px; border-radius:4px;">+ Comprar</span>
+            </div>
+          </div>
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:10px;">
+            <div style="height:68px; background:#f1f5f9; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin-bottom:8px;">🎁</div>
+            <div style="font-size:0.7rem; color:#f59e0b;">★★★★★ (64)</div>
+            <strong style="font-size:0.8rem; display:block;">Paquete Completo</strong>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+              <strong style="color:var(--brand-color); font-size:0.85rem;">$890 MXN</strong>
+              <span style="background:#0f172a; color:#fff; font-size:0.68rem; padding:3px 8px; border-radius:4px;">+ Comprar</span>
+            </div>
+          </div>
+        </div>`
+    },
+
+    apple: {
+      label: "Apple Keynote Bento Presentation",
+      color: "#0f172a",
+      secondary: "#334155",
+      defaultName: "Nova Studio Pro",
+      defaultDesc: "Diseño minimalista, precisión extraordinaria y tecnología pensada para cada detalle.",
+      insight: "Inspirada en Apple.com y Stripe: cabecera minimalista centrada, gran espacio en blanco, tipografía monumental y tarjeta panorámica de producto.",
+      pack: "Identity Dream Pack + Web ($2,199 MXN)",
+      render: (name, desc, initials, logoHtml) => `
+        <div class="tpl-nav-bar" style="display:flex; justify-content:space-between; align-items:center; padding:12px 28px; background:rgba(255,255,255,0.9); border-bottom:1px solid #e2e8f0;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            ${logoHtml}
+            <strong style="font-size:0.95rem; letter-spacing:-0.02em;">${name}</strong>
+          </div>
+          <div class="tpl-nav-links" style="display:flex; gap:18px; font-size:0.76rem; color:#475569;">
+            <span>Visión</span>
+            <span>Especificaciones</span>
+            <span>Galería</span>
+          </div>
+          <span style="background:var(--brand-color); color:#fff; font-size:0.72rem; padding:5px 12px; border-radius:99px;">Reservar</span>
+        </div>
+        <div style="text-align:center; padding:36px 28px 28px; background:#ffffff;">
+          <span style="font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--brand-color);">NUEVA GENERACIÓN</span>
+          <h2 style="font-size:2rem; font-weight:800; letter-spacing:-0.03em; color:#0f172a; margin:6px 0 10px;">${name}</h2>
+          <p style="font-size:0.9rem; color:#64748b; max-width:440px; margin:0 auto 18px;">${desc}</p>
+          <div style="display:flex; gap:10px; justify-content:center; margin-bottom:22px;">
+            <span style="background:var(--brand-color); color:#fff; padding:9px 22px; border-radius:99px; font-size:0.8rem; font-weight:600;">Comenzar Ahora</span>
+            <span style="color:var(--brand-color); padding:9px 16px; font-size:0.8rem; font-weight:600;">Ver presentación ›</span>
+          </div>
+          <div class="tpl-3col-grid" style="background:linear-gradient(135deg, var(--brand-color), var(--brand-secondary)); color:#fff; border-radius:12px; padding:22px; display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; text-align:center;">
+            <div><strong style="font-size:1.25rem; display:block;">100%</strong><span style="font-size:0.7rem; opacity:0.8;">Diseño a Medida</span></div>
+            <div><strong style="font-size:1.25rem; display:block;">Ultra Rápido</strong><span style="font-size:0.7rem; opacity:0.8;">Optimización Móvil</span></div>
+            <div><strong style="font-size:1.25rem; display:block;">Garantía Pro</strong><span style="font-size:0.7rem; opacity:0.8;">Calidad Ejecutiva</span></div>
+          </div>
+        </div>`
+    },
+
+    opentable: {
+      label: "OpenTable / Eventos & Gastronomía",
+      color: "#1e293b",
+      secondary: "#b45309",
+      defaultName: "Banquetes & Eventos Imperial",
+      defaultDesc: "Servicio profesional de meseros, coctelería, mobiliario y alta cocina para bodas y eventos corporativos.",
+      insight: "Inspirada en OpenTable y portales de eventos (como Meseros Luna): incorpora barra de cotización de fecha/invitados y paquetes por evento.",
+      pack: "Página Web Profesional ($699 MXN)",
+      render: (name, desc, initials, logoHtml) => `
+        <div class="tpl-nav-bar" style="display:flex; justify-content:space-between; align-items:center; padding:12px 26px; border-bottom:1px solid #e2e8f0; background:#fff;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            ${logoHtml}
+            <strong style="font-size:1rem;">${name}</strong>
+          </div>
+          <div class="tpl-nav-links" style="display:flex; gap:14px; font-size:0.76rem; color:#475569; font-weight:600;">
+            <span>Paquetes</span>
+            <span>Galería de Eventos</span>
+            <span>Testimonios</span>
+          </div>
+          <span style="background:var(--brand-color); color:#fff; font-size:0.74rem; padding:6px 12px; border-radius:6px; font-weight:600;">Reservar Fecha</span>
+        </div>
+        <div style="background:linear-gradient(135deg, var(--brand-color) 0%, #0f172a 100%); color:#fff; padding:28px 26px; text-align:center;">
+          <span style="font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; background:rgba(255,255,255,0.15); padding:3px 10px; border-radius:99px;">EXPERIENCIAS Y EVENTOS INOLVIDABLES</span>
+          <h2 style="color:#fff; font-size:1.65rem; margin:8px 0 6px;">${name}</h2>
+          <p style="font-size:0.84rem; opacity:0.9; max-width:460px; margin:0 auto 16px;">${desc}</p>
+          <!-- Barra de Reserva estilo OpenTable -->
+          <div class="tpl-booking-bar" style="background:#fff; color:#0f172a; padding:8px; border-radius:8px; display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:8px; max-width:540px; margin:0 auto; font-size:0.75rem; text-align:left;">
+            <div style="padding:6px 10px; border-right:1px solid #e2e8f0;"><strong>📅 Fecha</strong><br><span style="color:#64748b;">Sábado 24 Nov</span></div>
+            <div style="padding:6px 10px; border-right:1px solid #e2e8f0;"><strong>👥 Invitados</strong><br><span style="color:#64748b;">100 - 150 personas</span></div>
+            <div style="padding:6px 10px;"><strong>🥂 Tipo</strong><br><span style="color:#64748b;">Boda / Graduación</span></div>
+            <button type="button" style="background:var(--brand-color); color:#fff; padding:0 14px; border-radius:6px; font-weight:700;">Cotizar</button>
+          </div>
+        </div>
+        <div class="tpl-3col-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; padding:18px 26px; background:#fff; text-align:left; font-size:0.76rem;">
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:10px;"><strong>👔 Capitán y Meseros</strong><br><span style="color:#64748b;">Personal uniformado con protocolo de etiqueta.</span></div>
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:10px;"><strong>🍸 Barra y Coctelería</strong><br><span style="color:#64748b;">Bartenders profesionales y cristalería fina.</span></div>
+          <div style="border:1px solid #e2e8f0; border-radius:8px; padding:10px;"><strong>🎶 Coordinación Total</strong><br><span style="color:#64748b;">Puntualidad y atención directa por WhatsApp.</span></div>
+        </div>`
+    },
+
+    clinic: {
+      label: "Doctoralia / Clínica & Salud Pro",
+      color: "#059669",
+      secondary: "#065f46",
+      defaultName: "Centro Médico & Dental Especializado",
+      defaultDesc: "Cuidamos tu salud con especialistas certificados, tecnología avanzada y agenda de citas en línea.",
+      insight: "Inspirada en portales médicos como Doctoralia: transmite higiene y confianza con selector rápido de especialidad médica y botón de urgencias.",
+      pack: "Página Web + Identidad ($849 MXN)",
+      render: (name, desc, initials, logoHtml) => `
+        <div style="background:#ecfdf5; color:#065f46; font-size:0.72rem; padding:5px 24px; display:flex; justify-content:space-between; font-weight:600; border-bottom:1px solid #a7f3d0;">
+          <span>⚕️ Especialistas Certificados con Cédula Profesional</span>
+          <span>📞 Urgencias y Citas: Lun–Sáb 8:00 a 20:00 hrs</span>
+        </div>
+        <div class="tpl-nav-bar" style="display:flex; justify-content:space-between; align-items:center; padding:12px 24px; border-bottom:1px solid #e2e8f0; background:#fff;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            ${logoHtml}
+            <strong style="font-size:1rem;">${name}</strong>
+          </div>
+          <span style="background:var(--brand-color); color:#fff; font-size:0.75rem; padding:6px 14px; border-radius:99px; font-weight:700;">📅 Agendar Cita por WhatsApp</span>
+        </div>
+        <div class="tpl-hero-grid" style="display:grid; grid-template-columns:1.15fr 0.85fr; gap:18px; padding:24px; background:#f8fafc; text-align:left; align-items:center;">
+          <div>
+            <span style="font-size:0.68rem; font-weight:700; color:var(--brand-color);">SALUD Y BIENESTAR INTEGRAL</span>
+            <h2 style="font-size:1.45rem; margin:4px 0 8px;">${name}</h2>
+            <p style="font-size:0.82rem; color:#475569; margin-bottom:14px;">${desc}</p>
+            <div style="display:flex; gap:8px;">
+              <span style="background:var(--brand-color); color:#fff; padding:8px 14px; border-radius:6px; font-size:0.78rem; font-weight:600;">Agendar Valoración</span>
+              <span style="background:#fff; border:1px solid #cbd5e1; padding:8px 14px; border-radius:6px; font-size:0.78rem; font-weight:600;">Ver Ubicación</span>
+            </div>
+          </div>
+          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:10px; padding:14px;">
+            <strong style="font-size:0.78rem; display:block; margin-bottom:8px; color:var(--brand-color);">Horarios Disponibles Hoy:</strong>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:0.74rem; text-align:center;">
+              <div style="background:#ecfdf5; color:#065f46; padding:6px; border-radius:4px; font-weight:600;">10:00 AM ✓</div>
+              <div style="background:#ecfdf5; color:#065f46; padding:6px; border-radius:4px; font-weight:600;">12:30 PM ✓</div>
+              <div style="background:#ecfdf5; color:#065f46; padding:6px; border-radius:4px; font-weight:600;">04:00 PM ✓</div>
+              <div style="background:#ecfdf5; color:#065f46; padding:6px; border-radius:4px; font-weight:600;">06:00 PM ✓</div>
+            </div>
+          </div>
+        </div>`
+    },
+
+    instagram: {
+      label: "Instagram Web / Creator Portfolio",
+      color: "#4338ca",
+      secondary: "#ec4899",
+      defaultName: "Estudio Creativo & Portafolio",
+      defaultDesc: "Diseño visual, fotografía comercial y catálogo interactivo para redes sociales.",
+      insight: "Inspirada en Instagram Web: cabecera de perfil verificado con métricas de alcance, historias destacadas circulares y galería visual en cuadrícula.",
+      pack: "Social Media Visual Pack ($1,299 MXN)",
+      render: (name, desc, initials, logoHtml) => `
+        <div style="padding:20px 26px; background:#fff; border-bottom:1px solid #e2e8f0; display:flex; gap:20px; align-items:center; text-align:left;">
+          <div style="width:68px; height:68px; border-radius:50%; padding:3px; background:linear-gradient(45deg, #f59e0b, #ec4899, var(--brand-color)); flex-shrink:0;">
+            <div style="width:100%; height:100%; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; color:var(--brand-color); font-size:1.2rem;">${initials}</div>
+          </div>
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+              <strong style="font-size:1.1rem;">${name}</strong>
+              <span style="background:#0095f6; color:#fff; font-size:0.65rem; padding:1px 6px; border-radius:99px; font-weight:700;">✓ Verificado</span>
+              <span style="background:var(--brand-color); color:#fff; font-size:0.72rem; padding:4px 12px; border-radius:6px; font-weight:600; margin-left:auto;">Contactar en WhatsApp</span>
+            </div>
+            <div style="display:flex; gap:16px; font-size:0.75rem; color:#475569; margin-bottom:6px;">
+              <span><strong>148</strong> proyectos</span>
+              <span><strong>4.9 ★</strong> calificación</span>
+              <span><strong>100%</strong> recomendado</span>
+            </div>
+            <p style="font-size:0.78rem; color:#334155; margin:0;">${desc}</p>
+          </div>
+        </div>
+        <div class="tpl-3col-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; padding:16px 26px 24px; background:#fafafa;">
+          <div style="height:82px; background:linear-gradient(135deg, var(--brand-color), #6366f1); color:#fff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.78rem;">✨ Proyecto Destacado</div>
+          <div style="height:82px; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.78rem; color:#334155;">📸 Galería de Trabajo</div>
+          <div style="height:82px; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.78rem; color:#334155;">⭐ Reseñas de Clientes</div>
+        </div>`
+    }
+  };
+
+  function getBrandInitials(name) {
+    const words = (name || "Empresa").trim().split(/\s+/);
+    return words.length > 1 ? (words[0][0] + words[1][0]).toUpperCase() : name.substring(0, 2).toUpperCase();
+  }
+
+  function renderCurrentInternetTemplate() {
+    const tpl = INTERNET_TEMPLATES[currentTemplateKey] || INTERNET_TEMPLATES.microsoft;
+    const name = inputName.value || tpl.defaultName;
+    const desc = inputDesc.value || tpl.defaultDesc;
+    const initials = getBrandInitials(name);
+    const cleanDom = name.toLowerCase().replace(/[^a-z0-9]/g, "") || "miempresa";
+
+    const logoHtml = uploadedLogoDataUrl
+      ? `<img src="${uploadedLogoDataUrl}" style="max-height:34px; max-width:120px; object-fit:contain;">`
+      : `<div class="ai-monogram">${initials}</div>`;
+
+    document.getElementById("internetTemplateCanvas").innerHTML = tpl.render(name, desc, initials, logoHtml);
+    document.getElementById("activeTemplateBadge").textContent = "Plantilla: " + tpl.label;
+    document.getElementById("aiInsightText").textContent = tpl.insight;
+    document.getElementById("aiRecommendedPack").textContent = tpl.pack;
+    document.getElementById("sync-domain-url").textContent = cleanDom;
+
+    // Sincronizar vistas de tarjetas, redes y enlaces
+    document.querySelectorAll(".sync-name").forEach(el => el.textContent = name);
+    document.querySelectorAll(".sync-desc").forEach(el => el.textContent = desc);
+    document.querySelectorAll(".sync-initials").forEach(el => el.textContent = initials);
+  }
+
+  function selectInternetTemplate(key, fromAI = false) {
+    currentTemplateKey = key;
+    const tpl = INTERNET_TEMPLATES[key];
+    document.querySelectorAll(".tpl-card-btn").forEach(b => b.classList.remove("active"));
+    const activeBtn = document.getElementById("tplbtn-" + key);
+    if (activeBtn) activeBtn.classList.add("active");
+
+    if (!fromAI) {
+      inputName.value = tpl.defaultName;
+      inputDesc.value = tpl.defaultDesc;
+    }
+    setPresetColor(tpl.color, tpl.secondary);
+    selector.value = "web";
+    document.querySelectorAll(".mockup-view").forEach(v => v.classList.remove("active"));
+    document.getElementById("view-web").classList.add("active");
+    renderCurrentInternetTemplate();
+  }
+
+  // ============================================================================
+  // MOTOR CONVERSACIONAL DE IA: ANALIZA LO QUE PIDE EL USUARIO Y ARMA EL BOCETO
+  // ============================================================================
+  function handleAIPromptSubmit(e) {
+    e.preventDefault();
+    const input = document.getElementById("aiPromptInput");
+    if (input.value.trim() === "") return;
+    sendAIPrompt(input.value.trim());
+    input.value = "";
+  }
+
+  function sendAIPrompt(userText) {
+    const chatBox = document.getElementById("aiChatMessages");
+    chatBox.innerHTML += `<div class="ai-bubble user">${userText}</div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    const lower = userText.toLowerCase();
+    let chosenKey = "microsoft";
+    let customColor = null;
+    let explanation = "";
+
+    if (lower.includes("tienda") || lower.includes("vender") || lower.includes("ropa") || lower.includes("producto") || lower.includes("calzado") || lower.includes("shopify") || lower.includes("carrito") || lower.includes("ecommerce")) {
+      chosenKey = "shopify";
+      explanation = "Para vender productos en línea elegí la plantilla <strong>Shopify E-Commerce Store</strong>: incluye barra superior de envío gratis, buscador, carrito y catálogo de productos con calificación de estrellas.";
+    } else if (lower.includes("restaurante") || lower.includes("comida") || lower.includes("evento") || lower.includes("mesero") || lower.includes("banquete") || lower.includes("boda") || lower.includes("reserva") || lower.includes("opentable")) {
+      chosenKey = "opentable";
+      explanation = "Para el sector gastronómico y de eventos seleccioné la plantilla <strong>OpenTable / Hospitality</strong> con cotizador rápido por fecha, número de invitados y paquetes de servicio.";
+    } else if (lower.includes("clínica") || lower.includes("clinica") || lower.includes("médico") || lower.includes("medico") || lower.includes("dental") || lower.includes("salud") || lower.includes("cita") || lower.includes("consultorio")) {
+      chosenKey = "clinic";
+      explanation = "He aplicado la plantilla <strong>Doctoralia / Clínica Pro</strong> con agenda visual de horarios disponibles, botón de urgencias y estética verde clínica de alta confianza.";
+    } else if (lower.includes("apple") || lower.includes("minimal") || lower.includes("tecnolog") || lower.includes("startup") || lower.includes("modern") || lower.includes("reloj") || lower.includes("lujo")) {
+      chosenKey = "apple";
+      explanation = "Armé tu boceto tomando la plantilla <strong>Apple / Stripe Minimal Showcase</strong>: tipografía centrada de alto impacto, gran limpieza visual y métricas destacadas.";
+    } else if (lower.includes("instagram") || lower.includes("portafolio") || lower.includes("fotos") || lower.includes("redes") || lower.includes("creador") || lower.includes("belleza") || lower.includes("moda")) {
+      chosenKey = "instagram";
+      explanation = "Seleccioné la arquitectura <strong>Instagram Creator Hub</strong> con insignia de verificación, contadores de reputación y galería visual en cuadrícula.";
+    } else {
+      chosenKey = "microsoft";
+      explanation = "He construido tu boceto con la plantilla <strong>Microsoft Fluent Enterprise</strong>, ideal para proyectar solidez corporativa, indicadores de confianza y servicios B2B.";
+    }
+
+    // Detectar si el usuario pidió un color específico
+    if (lower.includes("azul")) customColor = "#0067b8";
+    else if (lower.includes("negro") || lower.includes("oscuro")) customColor = "#0f172a";
+    else if (lower.includes("verde")) customColor = "#059669";
+    else if (lower.includes("rojo") || lower.includes("vino")) customColor = "#b91c1c";
+    else if (lower.includes("morado") || lower.includes("violeta")) customColor = "#4338ca";
+    else if (lower.includes("dorado") || lower.includes("ambar")) customColor = "#b45309";
+
+    const tpl = INTERNET_TEMPLATES[chosenKey];
+    inputName.value = tpl.defaultName;
+    inputDesc.value = tpl.defaultDesc;
+
+    setTimeout(() => {
+      selectInternetTemplate(chosenKey, true);
+      if (customColor) setPresetColor(customColor, customColor);
+      setPerspective(-14, 8, 0.99, "pbtn-iso");
+
+      chatBox.innerHTML += `<div class="ai-bubble bot">
+        ✨ <strong>¡Boceto generado en vivo!</strong><br>${explanation}<br>
+        <small style="color:var(--primary); font-weight:600;">👉 Puedes girar la perspectiva 3D a la derecha o cambiar el nombre de tu empresa abajo.</small>
+      </div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+      showToast("✨ Boceto armado con la plantilla " + tpl.label);
+    }, 350);
+  }
+
+  // Control de Perspectiva 3D
+
+  const AI_COPY_POOL = [
+    "Innovación, diseño ejecutivo y resultados medibles para liderar tu industria.",
+    "Calidad extraordinaria, atención inmediata y garantía total en cada entrega.",
+    "La plataforma preferida por clientes que buscan confianza, rapidez y excelencia.",
+    "Transformamos cada detalle en una experiencia memorable para tus clientes.",
+    "Tecnología de última generación y servicio personalizado en todo México."
+  ];
+  let copyPoolIdx = 0;
+
+  function generateAICopywriting() {
+    copyPoolIdx = (copyPoolIdx + 1) % AI_COPY_POOL.length;
+    inputDesc.value = AI_COPY_POOL[copyPoolIdx];
+    renderCurrentInternetTemplate();
+    showToast("✍️ Nuevo texto comercial redactado por la IA");
+  }
+
+  function setDeviceViewport(maxW, btnId) {
+    scene3D.style.maxWidth = maxW;
+    ["dev-pc", "dev-tab", "dev-mob"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("active");
+    });
+    const activeEl = document.getElementById(btnId);
+    if (activeEl) activeEl.classList.add("active");
+    showToast("Vista adaptada a: " + activeEl.textContent);
+  }
+
+  function setPerspective(rotY, rotX, scale, btnId) {
+    document.getElementById("rotYSlider").value = rotY;
+    document.getElementById("rotXSlider").value = rotX;
+    document.getElementById("scaleSlider").value = Math.round(scale * 100);
+    document.querySelectorAll(".persp-btn").forEach(b => b.classList.remove("active"));
+    if (btnId && document.getElementById(btnId)) {
+      document.getElementById(btnId).classList.add("active");
+    }
+    applyManual3D();
+  }
+
+  function applyManual3D() {
+    const ry = Number(document.getElementById("rotYSlider").value);
+    const rx = Number(document.getElementById("rotXSlider").value);
+    const sc = Number(document.getElementById("scaleSlider").value) / 100;
+
+    document.getElementById("rotYVal").textContent = ry + "°";
+    document.getElementById("rotXVal").textContent = rx + "°";
+    document.getElementById("scaleVal").textContent = Math.round(sc * 100) + "%";
+
+    scene3D.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) scale(${sc})`;
+    floorShadow.style.transform = `translateX(${-ry * 1.2}px) scaleX(${sc})`;
+  }
+
+  mockupContainer.addEventListener("mousemove", e => {
+    if (!document.getElementById("mouse3DToggle").checked) return;
+    const rect = mockupContainer.getBoundingClientRect();
+    const xRel = (e.clientX - rect.left) / rect.width - 0.5;
+    const yRel = (e.clientY - rect.top) / rect.height - 0.5;
+    const baseRY = Number(document.getElementById("rotYSlider").value);
+    const baseRX = Number(document.getElementById("rotXSlider").value);
+    const sc = Number(document.getElementById("scaleSlider").value) / 100;
+    scene3D.style.transform = `rotateX(${(baseRX - yRel * 10).toFixed(1)}deg) rotateY(${(baseRY + xRel * 14).toFixed(1)}deg) scale(${sc})`;
+  });
+
+  mockupContainer.addEventListener("mouseleave", applyManual3D);
+
+  selector.addEventListener("change", e => {
+    document.querySelectorAll(".mockup-view").forEach(v => v.classList.remove("active"));
+    document.getElementById("view-" + e.target.value).classList.add("active");
+  });
+
+  inputName.addEventListener("input", renderCurrentInternetTemplate);
+  inputDesc.addEventListener("input", renderCurrentInternetTemplate);
+
+  function setPresetColor(hex, secondaryHex = "#1e3a8a") {
+    inputColor.value = hex;
+    document.getElementById("color-hex").textContent = hex;
+    mockupContainer.style.setProperty("--brand-color", hex);
+    mockupContainer.style.setProperty("--brand-secondary", secondaryHex);
+    renderCurrentInternetTemplate();
+  }
+
+  inputColor.addEventListener("input", e => {
+    setPresetColor(e.target.value, e.target.value);
+  });
+
+  document.getElementById("c-logo").addEventListener("change", e => {
+    if (e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        uploadedLogoDataUrl = ev.target.result;
+        document.querySelectorAll(".sync-logo-img").forEach(el => {
+          el.src = uploadedLogoDataUrl;
+          el.style.display = "block";
+        });
+        renderCurrentInternetTemplate();
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  });
+
+  function enviarIdea() {
+    const tpl = INTERNET_TEMPLATES[currentTemplateKey];
+    const color = inputColor.value;
+    const prospectos = JSON.parse(safeGet("dmd_bocetos") || "[]");
+    prospectos.push({
+      id: Date.now(),
+      fecha: new Date().toLocaleDateString("es-MX"),
+      vista: "Plantilla IA: " + tpl.label,
+      nombre: inputName.value,
+      desc: inputDesc.value,
+      color
+    });
+    safeSet("dmd_bocetos", JSON.stringify(prospectos));
+
+    const msg = `Hola equipo DMD, armé mi boceto con su Arquitecto Web IA:\n\n• Plantilla elegida: ${tpl.label}\n• Empresa: ${inputName.value}\n• Propuesta: ${inputDesc.value}\n• Color: ${color}\n\nQuiero cotizar este proyecto.`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
+  }
+
+  function cotizarBocetoDirecto() {
+    const tpl = INTERNET_TEMPLATES[currentTemplateKey];
+    const price = currentTemplateKey === "shopify" ? 1099 : 699;
+    addItemToCart(`Página Web (${tpl.label} - ${inputName.value})`, price);
+    setTimeout(() => { window.location.href = "servicios.html"; }, 600);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderCurrentInternetTemplate();
+    applyManual3D();
+  });
+</script>
+
+<!-- WIDGET DE ASISTENCIA EJECUTIVA -->
+<div class="chat-widget">
+  <button class="chat-btn" id="chatBtn" aria-label="Abrir asistente ejecutivo">
+    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <span>Asesor en Línea</span>
+  </button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div>
+        <strong style="display:block; font-size:0.95rem;">Atención a Clientes DMD</strong>
+        <span style="font-size:0.76rem; opacity:0.9;">Respuesta inmediata · Horario comercial</span>
+      </div>
+      <button class="ghost" id="chatClose" style="padding:4px 9px; border:none; background:rgba(255,255,255,0.15); color:#fff;">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg bot">Bienvenido a <strong>Digital Majfa Dreams</strong>. ¿En qué podemos asesorarte hoy para impulsar tu negocio?</div>
+      <div class="chat-opts" id="chatOpts">
+        <button onclick="sendUserMsg('Quiero cotizar servicios')">Cotizar servicios individuales</button>
+        <button onclick="sendUserMsg('Busco un paquete integral')">Ver paquetes empresariales</button>
+        <button onclick="sendUserMsg('Consultar tiempos de entrega')">Tiempos de entrega y garantías</button>
+        <button onclick="sendUserMsg('Hablar con un asesor')">Contactar a un asesor humano</button>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="Escribe tu consulta..." onkeypress="if(event.key==='Enter') sendCustomMsg()">
+      <button class="btn" onclick="sendCustomMsg()" style="padding:0 14px;">Enviar</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <img src="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg" alt="DMD">
+          <span>Digital Majfa Dreams</span>
+        </a>
+        <p style="color:var(--mute); font-size:0.88rem; margin-bottom:16px; max-width:300px;">
+          Agencia especializada en desarrollo web, identidad corporativa, diseño editorial y ecosistemas digitales para empresas y comercios en México.
+        </p>
+        <div style="font-size:0.84rem; color:var(--text-secondary);">
+          <div><strong>Ubicación:</strong> Estado de México, México</div>
+          <div><strong>Atención:</strong> Lunes a Sábado · 9:00 – 19:00 hrs</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="web.html">Páginas Web Profesionales</a></li>
+          <li><a href="logo.html">Diseño de Logotipos</a></li>
+          <li><a href="identidad.html">Colores e Identidad Visual</a></li>
+          <li><a href="tarjetas.html">Tarjetas de Presentación</a></li>
+          <li><a href="banners.html">Banners y Portadas</a></li>
+          <li><a href="enlaces.html">Ecosistema Bio Links</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Soluciones y Planes</h4>
+        <ul>
+          <li><a href="paquetes.html">Identity Dream Pack</a></li>
+          <li><a href="paquetes.html">Social Media Visual Pack</a></li>
+          <li><a href="paquetes.html">Layout &amp; Editorial B2B</a></li>
+          <li><a href="paquetes.html">Plan Impulso Web + Marca</a></li>
+          <li><a href="dominios.html">Registro de Dominios (.com / .mx)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Herramientas y Portal</h4>
+        <ul>
+          <li><a href="servicios.html">Cotizador en Tiempo Real</a></li>
+          <li><a href="boceto.html">Estudio de Marca Interactivo</a></li>
+          <li><a href="checkout.html">Confirmación de Pedido</a></li>
+          <li><a href="login.html">Acceso Portal de Clientes</a></li>
+          <li><a href="admin.html">DMD Agency OS (Admin)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Empresa y Respaldo</h4>
+        <ul>
+          <li><a href="index.html#proceso">Metodología de Trabajo</a></li>
+          <li><a href="index.html#portafolio">Casos de Éxito (Meseros Luna)</a></li>
+          <li><a href="index.html#equipo">Equipo Directivo DMD</a></li>
+          <li><a href="index.html#faq">Preguntas Frecuentes</a></li>
+          <li><a href="index.html#contacto">Contacto Directo</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Digital Majfa Dreams (DMD). Todos los derechos reservados. Precios expresados en Pesos Mexicanos (MXN).</div>
+      <div style="display:flex; gap:20px;">
+        <a href="index.html#faq">Garantía de Satisfacción</a>
+        <a href="servicios.html">Transparencia de Precios</a>
+        <a href="login.html">Privacidad y Seguridad</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

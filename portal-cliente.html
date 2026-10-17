@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal de Cliente | Digital Majfa Dreams</title>
+<link rel="icon" href="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Majfa Dreams (DMD)">
+<meta property="og:title" content="Digital Majfa Dreams | Desarrollo Web, Identidad Visual y Marketing Digital">
+<meta property="og:description" content="Páginas web profesionales, diseño de logotipos, simulador con IA en 3D y dominios oficiales para empresas. Precios transparentes desde $150 MXN.">
+<meta property="og:image" content="og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Majfa Dreams (DMD) | Agencia Digital Corporativa">
+<meta name="twitter:description" content="Construimos la presencia digital e identidad corporativa de tu empresa. Prueba gratis nuestro Arquitecto Web IA 3D.">
+<meta name="twitter:image" content="og-preview.png">
+<meta name="theme-color" content="#0067b8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <a href="index.html" class="brand" style="margin-bottom:24px;">
+      <img src="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg" alt="DMD">
+      <div>
+        <span>DMD Portal</span>
+        <small class="brand-sub">Área de Clientes</small>
+      </div>
+    </a>
+
+    <!-- Tarjeta de sesión activa del usuario -->
+    <div style="background:var(--bg-alt); border:1px solid var(--line); border-radius:8px; padding:12px; margin-bottom:20px; display:flex; align-items:center; gap:10px;">
+      <div id="userAvatarBadge" style="width:36px; height:36px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem; flex-shrink:0;">U</div>
+      <div style="overflow:hidden;">
+        <div id="sidebarUserName" style="font-weight:600; font-size:0.86rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Cliente DMD</div>
+        <div id="sidebarUserEmail" style="font-size:0.75rem; color:var(--mute); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Sesión activa</div>
+      </div>
+    </div>
+
+    <button class="nav-btn active" data-target="proyectos">📁 Mis Proyectos Activos</button>
+    <button class="nav-btn" data-target="facturacion">🧾 Pedidos y Facturación</button>
+    <button class="nav-btn" data-target="soporte">🛠️ Soporte y Servicios Extra</button>
+
+    <div style="margin-top:auto; padding-top:20px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:8px;">
+      <a href="servicios.html" class="ghost" style="font-size:0.86rem; padding:9px;">+ Solicitar Nuevo Servicio</a>
+      <button class="nav-btn" style="color:var(--danger); margin:0;" onclick="logoutClient()">↪ Cerrar Sesión / Cambiar Cuenta</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:32px; padding-bottom:20px; border-bottom:1px solid var(--line);">
+      <div>
+        <span class="eyebrow" id="accountBadgeType">Cuenta Empresarial Verificada</span>
+        <h1 style="font-size:2rem; margin:0;" id="welcomeClientTitle">Bienvenido a tu Portal DMD</h1>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <a href="login.html" class="ghost">Cambiar de cuenta</a>
+        <a href="index.html" class="ghost">← Volver al sitio</a>
+      </div>
+    </div>
+
+    <div id="orderSuccessBanner" class="hidden" style="margin-bottom:24px; padding:16px 20px; border-radius:var(--radius); background:var(--success-bg); border:1px solid rgba(5,150,105,0.3); color:var(--success); font-weight:600;">
+      ✓ Tu nuevo pedido ha sido registrado exitosamente y ya aparece en tu panel de proyectos y facturación.
+    </div>
+
+    <!-- 1. MIS PROYECTOS -->
+    <div id="proyectos" class="tab-pane active">
+      <div class="grid" id="clientProjectsGrid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));"></div>
+    </div>
+
+    <!-- 2. FACTURACIÓN -->
+    <div id="facturacion" class="tab-pane">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <h2 style="font-size:1.5rem; margin:0;">Historial de Pedidos y Estado de Cuenta</h2>
+        <button class="ghost" style="padding:8px 16px; font-size:0.86rem;" onclick="window.print()">🖨️ Imprimir Estado de Cuenta</button>
+      </div>
+
+      <div class="tw" style="margin-bottom:36px;">
+        <table class="t" id="tabla-compras">
+          <thead>
+            <tr>
+              <th>Folio Pedido</th>
+              <th>Fecha</th>
+              <th>Servicios Contratados</th>
+              <th>Inversión Total</th>
+              <th>Estado</th>
+              <th>Comprobante</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-compras-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. SOPORTE TÉCNICO -->
+    <div id="soporte" class="tab-pane">
+      <div class="card" style="margin-bottom:32px; background:var(--primary-light); border-color:rgba(0,103,184,0.3);">
+        <h2 style="font-size:1.45rem; margin-bottom:8px;">Mesa de Ayuda y Soporte Técnico Prioritario</h2>
+        <p style="color:var(--text-secondary); margin-bottom:18px; max-width:700px;">
+          ¿Necesitas actualizar teléfonos, fotografías, precios en tu página web o configurar un nuevo correo? Nuestro equipo técnico te atiende de forma directa.
+        </p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://wa.me/?text=Hola%20equipo%20DMD,%20necesito%20soporte%20con%20mi%20cuenta." target="_blank" class="btn">Abrir Ticket en WhatsApp 💬</a>
+          <a href="dominios.html" class="ghost" style="background:#fff;">Verificar Dominios Adicionales</a>
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:16px;">Servicios Complementarios para tu Cuenta</h3>
+      <div class="grid">
+        <div class="card">
+          <h3>Mantenimiento y Actualización Web</h3>
+          <p class="mute" style="font-size:0.9rem; margin:8px 0 16px; flex:1;">Actualizaciones periódicas de texto, promociones, fotos y monitoreo de seguridad de tu sitio.</p>
+          <div class="price-tag" style="font-size:1.5rem;">$499 MXN <small>/ mes</small></div>
+          <button class="ghost" style="width:100%;" onclick="addItemToCart('Mantenimiento Web Mensual', 499); location.href='servicios.html';">Añadir al Cotizador</button>
+        </div>
+
+        <div class="card">
+          <h3>Correos Corporativos Profesionales</h3>
+          <p class="mute" style="font-size:0.9rem; margin:8px 0 16px; flex:1;">Cuentas de correo electrónico con el dominio de tu empresa (ej. contacto@tuempresa.com).</p>
+          <div class="price-tag" style="font-size:1.5rem;">$250 MXN <small>/ año</small></div>
+          <button class="ghost" style="width:100%;" onclick="addItemToCart('Paquete Correos Corporativos (Anual)', 250); location.href='servicios.html';">Añadir al Cotizador</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="script.js"></script>
+<script>
+  function logoutClient() {
+    safeRemove("dmd_cliente");
+    safeRemove("dmd_cliente_nombre");
+    safeRemove("dmd_cliente_email");
+    safeRemove("dmd_is_luna_demo");
+    window.location.href = "login.html";
+  }
+
+  const savedName = safeGet("dmd_cliente_nombre") || "Cliente Empresarial";
+  const savedEmail = safeGet("dmd_cliente_email") || "Sesión activa en DMD";
+  const isLunaDemo = safeGet("dmd_is_luna_demo") === "true";
+
+  document.getElementById("welcomeClientTitle").textContent = "Hola, " + savedName;
+  document.getElementById("sidebarUserName").textContent = savedName;
+  document.getElementById("sidebarUserEmail").textContent = savedEmail;
+  document.getElementById("userAvatarBadge").textContent = savedName.substring(0, 1).toUpperCase();
+
+  const navBtns = document.querySelectorAll(".nav-btn[data-target]");
+  const tabPanes = document.querySelectorAll(".tab-pane");
+
+  function activatePortalTab(targetId) {
+    navBtns.forEach(b => b.classList.remove("active"));
+    tabPanes.forEach(p => p.classList.remove("active"));
+    const btn = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+    const pane = document.getElementById(targetId);
+    if (btn && pane) {
+      btn.classList.add("active");
+      pane.classList.add("active");
+    }
+  }
+
+  navBtns.forEach(btn => {
+    btn.addEventListener("click", () => activatePortalTab(btn.getAttribute("data-target")));
+  });
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("tab")) activatePortalTab(params.get("tab"));
+  if (params.get("nuevo")) document.getElementById("orderSuccessBanner").classList.remove("hidden");
+
+  const historial = JSON.parse(safeGet("dmd_compras") || "[]");
+  const projectsGrid = document.getElementById("clientProjectsGrid");
+  const tbody = document.getElementById("tabla-compras-body");
+
+  if (isLunaDemo) {
+    projectsGrid.innerHTML = `
+      <div class="card card-featured">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <span class="eyebrow" style="margin:0;">ID: #DMD-2026-001</span>
+          <span class="status-badge">● Operativo en Línea</span>
+        </div>
+        <h2 style="font-size:1.45rem; margin-bottom:8px;">Página Web Oficial — Meseros Luna</h2>
+        <p class="mute" style="font-size:0.92rem; margin-bottom:18px;">Hosting empresarial y certificado SSL vigentes hasta Octubre 2027.</p>
+        <div class="card-actions">
+          <a href="https://digital-majfa-dreams-dmd.github.io/paginaLuna/" target="_blank" rel="noopener" class="btn" style="flex:1;">Visitar Sitio Web ↗</a>
+        </div>
+      </div>`;
+    tbody.innerHTML = `<tr>
+      <td><strong>#DMD-2026-001</strong></td>
+      <td>15/09/2026</td>
+      <td>Desarrollo Web Profesional &amp; Dominio</td>
+      <td><strong>$3,500 MXN</strong></td>
+      <td><span class="status-badge">Pagado</span></td>
+      <td><button class="ghost" style="padding:5px 12px; font-size:0.8rem;" onclick="window.print()">Recibo PDF ↓</button></td>
+    </tr>`;
+  } else if (historial.length > 0) {
+    projectsGrid.innerHTML = historial.map(c => `
+      <div class="card card-featured">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <span class="eyebrow" style="margin:0;">Folio: ${c.id}</span>
+          <span class="status-badge">${c.estado || "En Proceso"}</span>
+        </div>
+        <h2 style="font-size:1.35rem; margin-bottom:8px;">${(c.servicios || []).map(s => s.n).join(" + ")}</h2>
+        <p class="mute" style="font-size:0.92rem; margin-bottom:18px;">Titular: <strong>${savedName}</strong> (${savedEmail}) · Fecha: ${c.fecha}</p>
+        <div class="card-actions">
+          <a href="https://wa.me/?text=${encodeURIComponent('Hola DMD, consulto el avance de mi pedido ' + c.id)}" target="_blank" class="btn" style="flex:1;">Consultar Avance por WhatsApp</a>
+        </div>
+      </div>`).join("");
+
+    tbody.innerHTML = historial.map(c => `<tr>
+      <td><strong>${c.id}</strong></td>
+      <td>${c.fecha}</td>
+      <td>${(c.servicios || []).map(s => s.n).join(", ")}</td>
+      <td><strong>$${Number(c.total).toLocaleString("es-MX")} MXN</strong></td>
+      <td><span class="status-badge">${c.estado || "Registrado"}</span></td>
+      <td><button class="ghost" style="padding:5px 12px; font-size:0.8rem;" onclick="window.print()">Recibo PDF ↓</button></td>
+    </tr>`).join("");
+  } else {
+    projectsGrid.innerHTML = `
+      <div class="card card-featured">
+        <span class="eyebrow">Cuenta Lista</span>
+        <h2 style="font-size:1.4rem; margin-bottom:8px;">Bienvenido a tu panel, ${savedName}</h2>
+        <p class="mute" style="font-size:0.94rem; margin-bottom:20px;">
+          Tu cuenta (<strong>${savedEmail}</strong>) está activa. Arma tu cotización o diseña un boceto en el simulador IA 3D para iniciar tu primer proyecto con Digital Majfa Dreams.
+        </p>
+        <div class="card-actions">
+          <a href="servicios.html" class="btn" style="flex:1;">Ir al Cotizador de Servicios →</a>
+          <a href="boceto.html" class="ghost" style="flex:1;">Abrir Simulador IA 3D</a>
+        </div>
+      </div>`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--mute); padding:24px;">Aún no hay pedidos registrados en esta cuenta (${savedEmail}).</td></tr>`;
+  }
+</script>
+</body>
+</html>

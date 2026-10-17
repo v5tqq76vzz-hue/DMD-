@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registro de Dominios Oficiales | Digital Majfa Dreams</title>
+<link rel="icon" href="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Majfa Dreams (DMD)">
+<meta property="og:title" content="Digital Majfa Dreams | Desarrollo Web, Identidad Visual y Marketing Digital">
+<meta property="og:description" content="Páginas web profesionales, diseño de logotipos, simulador con IA en 3D y dominios oficiales para empresas. Precios transparentes desde $150 MXN.">
+<meta property="og:image" content="og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Majfa Dreams (DMD) | Agencia Digital Corporativa">
+<meta name="twitter:description" content="Construimos la presencia digital e identidad corporativa de tu empresa. Prueba gratis nuestro Arquitecto Web IA 3D.">
+<meta name="twitter:image" content="og-preview.png">
+<meta name="theme-color" content="#0067b8">
+<link rel="stylesheet" href="style.css">
+<style>
+  .domain-search-box {
+    display: flex;
+    gap: 12px;
+    max-width: 720px;
+    margin: 0 auto 24px auto;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-sm);
+  }
+  .domain-search-box input {
+    flex: 1;
+    border: none;
+    padding: 12px 16px;
+    font-size: 1.05rem;
+    outline: none;
+    color: var(--text);
+  }
+  .tld-card {
+    text-align: center;
+    align-items: center;
+  }
+  .tld-badge {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.03em;
+  }
+</style>
+</head>
+<body>
+<div class="ms-color-strip"></div>
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <div><strong>Digital Majfa Dreams (DMD)</strong> · Soluciones Digitales, Diseño Corporativo y Desarrollo Web para Empresas</div>
+    <div class="topbar-links">
+      <span>Atención Ejecutiva: Lun–Sáb 9:00 a 19:00 hrs</span>
+      <a href="servicios.html">Cotizador en Línea</a>
+      <a href="portal-cliente.html">Soporte a Clientes</a>
+    </div>
+  </div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="wrap navin">
+    <a class="brand" href="index.html">
+      <img src="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg" alt="DMD Logo">
+      <div>
+        <span>Digital Majfa Dreams</span>
+        <small class="brand-sub">Agencia Digital &amp; Diseño Corporativo</small>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰ <span class="menu-label">Menú</span></button>
+    <div class="links" id="navLinks">
+      <a href="index.html" class="">Inicio</a>
+      <a href="servicios.html" class="">Servicios</a>
+      <a href="paquetes.html" class="">Paquetes</a>
+      <a href="dominios.html" class="on">Dominios</a>
+      <a href="boceto.html" class="">Simulador</a>
+      <a href="index.html#portafolio">Portafolio</a>
+      <a href="index.html#contacto">Contacto</a>
+    </div>
+    <div class="acts2">
+      <button type="button" class="theme-toggle-btn" onclick="toggleDarkMode()" title="Cambiar entre Modo Claro y Modo Noche">
+        <span>🌙</span> <span class="theme-label">Modo Noche</span>
+      </button>
+      <a class="cart-pill" id="pill" href="servicios.html#aside" title="Ver servicios seleccionados">
+        <span class="cart-label">Cotización</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a class="btn" id="portalBtn" href="login.html" style="padding: 9px 16px; font-size:0.88rem;">Iniciar Sesión</a>
+      <a class="ghost" id="adminBtn" href="admin.html" style="display:none; padding: 9px 14px; font-size:0.86rem; border-color:var(--primary); color:var(--primary);">Panel Admin</a>
+    </div>
+  </div>
+</nav>
+<script src="script.js"></script>
+
+<section class="hero-band" style="padding: 52px 0 44px; text-align:center;">
+  <div class="wrap">
+    <span class="eyebrow">Nombres de Dominio y Configuración DNS</span>
+    <h1>Asegura el Nombre Oficial de tu Empresa en Internet</h1>
+    <p class="sub" style="margin: 0 auto 28px auto;">
+      Verifica al instante tu nombre comercial en las extensiones más utilizadas. Todos los registros incluyen configuración técnica DNS, redirección y soporte de nuestro equipo.
+    </p>
+
+    <div class="domain-search-box">
+      <input type="text" id="domainInput" placeholder="Escribe el nombre de tu empresa (ej. mibuennegocio.com)" onkeypress="if(event.key==='Enter') cotizarDominio()">
+      <button class="btn" type="button" onclick="cotizarDominio()" style="padding: 12px 28px;">Verificar Disponibilidad</button>
+    </div>
+    <div style="font-size:0.85rem; color:var(--mute);">
+      Extensiones populares: <strong>.com ($299/año)</strong> · <strong>.com.mx ($399/año)</strong> · <strong>.mx ($699/año)</strong> · <strong>.store ($199/año)</strong>
+    </div>
+  </div>
+</section>
+
+<div class="wrap band" style="padding-top:40px;">
+  <!-- CAJA DINÁMICA DE RESULTADOS MULTI-EXTENSIÓN -->
+  <div id="searchResult" class="card hidden" style="max-width: 880px; margin: 0 auto 56px auto; border-color: var(--primary);">
+    <div id="loading" style="text-align:center; padding:24px;">
+      <div class="loader"></div>
+      <p class="mute" style="margin-top:10px;">Consultando disponibilidad en servidores de nombres...</p>
+    </div>
+    <div id="resultContent" class="hidden">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; padding-bottom:18px; border-bottom:1px solid var(--line); margin-bottom:20px;">
+        <div>
+          <span class="status-badge" style="margin-bottom:6px;">✓ Dominio Disponible</span>
+          <h3 style="font-size:1.5rem;" id="resDomain">ejemplo.com</h3>
+          <p class="mute" style="font-size:0.9rem;">Listo para registro inmediato con configuración DNS y protección incluida.</p>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button type="button" class="btn" id="addDomainCartBtn">Añadir al Cotizador</button>
+          <a id="buyLink" href="#" class="ghost" target="_blank" rel="noopener">Registrar por WhatsApp</a>
+        </div>
+      </div>
+
+      <h4 style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:12px;">Otras extensiones disponibles para tu marca:</h4>
+      <div id="altExtensionsGrid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px;"></div>
+    </div>
+  </div>
+
+  <div class="section-header center">
+    <span class="eyebrow">Tarifas Oficiales Anuales</span>
+    <h2>Extensiones de Dominio Disponibles</h2>
+    <p class="mute">Sin cargos ocultos. Renovación anual transparente y titularidad para tu negocio.</p>
+  </div>
+
+  <div class="grid tld-grid">
+    <article class="card tld-card">
+      <div class="tld-badge">.com</div>
+      <p class="mute" style="flex:1; font-size:0.94rem;">El estándar comercial global más reconocido para empresas de cualquier giro.</p>
+      <div class="price-tag">$299 <small>MXN / año</small></div>
+      <button class="ghost" style="width:100%;" onclick="addItemToCart('Registro Dominio .COM (1 año)', 299)">Añadir a Cotización</button>
+    </article>
+
+    <article class="card tld-card card-featured">
+      <span class="card-badge">Oficial México</span>
+      <div class="tld-badge">.mx</div>
+      <p class="mute" style="flex:1; font-size:0.94rem;">La extensión nacional corta y distintiva para marcas establecidas en México.</p>
+      <div class="price-tag">$699 <small>MXN / año</small></div>
+      <button class="btn" style="width:100%;" onclick="addItemToCart('Registro Dominio .MX (1 año)', 699)">Añadir a Cotización</button>
+    </article>
+
+    <article class="card tld-card">
+      <div class="tld-badge">.com.mx</div>
+      <p class="mute" style="flex:1; font-size:0.94rem;">Preferido por empresas comerciales, despachos y proveedores en territorio nacional.</p>
+      <div class="price-tag">$399 <small>MXN / año</small></div>
+      <button class="ghost" style="width:100%;" onclick="addItemToCart('Registro Dominio .COM.MX (1 año)', 399)">Añadir a Cotización</button>
+    </article>
+
+    <article class="card tld-card">
+      <div class="tld-badge">.net</div>
+      <p class="mute" style="flex:1; font-size:0.94rem;">Excelente para proyectos de tecnología, telecomunicaciones, sistemas y servicios digitales.</p>
+      <div class="price-tag">$350 <small>MXN / año</small></div>
+      <button class="ghost" style="width:100%;" onclick="addItemToCart('Registro Dominio .NET (1 año)', 350)">Añadir a Cotización</button>
+    </article>
+
+    <article class="card tld-card">
+      <div class="tld-badge">.org</div>
+      <p class="mute" style="flex:1; font-size:0.94rem;">Diseñado para asociaciones civiles, instituciones educativas, fundaciones y cámaras.</p>
+      <div class="price-tag">$380 <small>MXN / año</small></div>
+      <button class="ghost" style="width:100%;" onclick="addItemToCart('Registro Dominio .ORG (1 año)', 380)">Añadir a Cotización</button>
+    </article>
+
+    <article class="card tld-card">
+      <div class="tld-badge">.store</div>
+      <p class="mute" style="flex:1; font-size:0.94rem;">Moderno y directo para tiendas en línea, catálogos de productos y comercios minoristas.</p>
+      <div class="price-tag">$199 <small>MXN / año</small></div>
+      <button class="ghost" style="width:100%;" onclick="addItemToCart('Registro Dominio .STORE (1 año)', 199)">Añadir a Cotización</button>
+    </article>
+  </div>
+</div>
+
+<script>
+  const TLD_PRICES = {
+    ".com": 299,
+    ".mx": 699,
+    ".com.mx": 399,
+    ".net": 350,
+    ".org": 380,
+    ".store": 199
+  };
+
+  function cotizarDominio() {
+    const raw = document.getElementById("domainInput").value.trim().toLowerCase();
+    if (raw === "") {
+      alert("Por favor escribe el nombre del dominio que deseas consultar.");
+      return;
+    }
+
+    const cleanBase = raw.replace(/^(https?:\/\/)?(www\.)?/, "").split(".")[0].replace(/[^a-z0-9-]/g, "") || "miempresa";
+    const fullQuery = raw.includes(".") ? raw : cleanBase + ".com";
+
+    let matchedPrice = 299;
+    Object.keys(TLD_PRICES).forEach(ext => {
+      if (fullQuery.endsWith(ext)) matchedPrice = TLD_PRICES[ext];
+    });
+
+    const resultBox = document.getElementById("searchResult");
+    const loading = document.getElementById("loading");
+    const content = document.getElementById("resultContent");
+
+    resultBox.classList.remove("hidden");
+    loading.classList.remove("hidden");
+    content.classList.add("hidden");
+
+    setTimeout(() => {
+      loading.classList.add("hidden");
+      content.classList.remove("hidden");
+      document.getElementById("resDomain").textContent = `${fullQuery} — $${matchedPrice} MXN/año`;
+      document.getElementById("buyLink").href = `https://wa.me/?text=${encodeURIComponent(`Hola DMD, quiero registrar el dominio ${fullQuery} ($${matchedPrice} MXN/año).`)}`;
+      document.getElementById("addDomainCartBtn").onclick = () => {
+        addItemToCart(`Dominio ${fullQuery} (1 año)`, matchedPrice);
+      };
+
+      const altGrid = document.getElementById("altExtensionsGrid");
+      altGrid.innerHTML = Object.entries(TLD_PRICES).map(([ext, price]) => {
+        const domName = cleanBase + ext;
+        return `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:var(--bg-alt); border:1px solid var(--line); border-radius:6px; font-size:0.88rem;">
+          <div><strong>${domName}</strong><br><span style="color:var(--mute);">$${price} MXN/año</span></div>
+          <button type="button" class="ghost" style="padding:6px 12px; font-size:0.8rem;" onclick="addItemToCart('Dominio ${domName} (1 año)', ${price})">+ Elegir</button>
+        </div>`;
+      }).join("");
+    }, 600);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("q") || safeGet("dmd_last_domain_query");
+    if (q) {
+      document.getElementById("domainInput").value = q;
+      safeRemove("dmd_last_domain_query");
+      cotizarDominio();
+    }
+  });
+</script>
+
+<!-- WIDGET DE ASISTENCIA EJECUTIVA -->
+<div class="chat-widget">
+  <button class="chat-btn" id="chatBtn" aria-label="Abrir asistente ejecutivo">
+    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <span>Asesor en Línea</span>
+  </button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div>
+        <strong style="display:block; font-size:0.95rem;">Atención a Clientes DMD</strong>
+        <span style="font-size:0.76rem; opacity:0.9;">Respuesta inmediata · Horario comercial</span>
+      </div>
+      <button class="ghost" id="chatClose" style="padding:4px 9px; border:none; background:rgba(255,255,255,0.15); color:#fff;">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg bot">Bienvenido a <strong>Digital Majfa Dreams</strong>. ¿En qué podemos asesorarte hoy para impulsar tu negocio?</div>
+      <div class="chat-opts" id="chatOpts">
+        <button onclick="sendUserMsg('Quiero cotizar servicios')">Cotizar servicios individuales</button>
+        <button onclick="sendUserMsg('Busco un paquete integral')">Ver paquetes empresariales</button>
+        <button onclick="sendUserMsg('Consultar tiempos de entrega')">Tiempos de entrega y garantías</button>
+        <button onclick="sendUserMsg('Hablar con un asesor')">Contactar a un asesor humano</button>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="Escribe tu consulta..." onkeypress="if(event.key==='Enter') sendCustomMsg()">
+      <button class="btn" onclick="sendCustomMsg()" style="padding:0 14px;">Enviar</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <img src="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg" alt="DMD">
+          <span>Digital Majfa Dreams</span>
+        </a>
+        <p style="color:var(--mute); font-size:0.88rem; margin-bottom:16px; max-width:300px;">
+          Agencia especializada en desarrollo web, identidad corporativa, diseño editorial y ecosistemas digitales para empresas y comercios en México.
+        </p>
+        <div style="font-size:0.84rem; color:var(--text-secondary);">
+          <div><strong>Ubicación:</strong> Estado de México, México</div>
+          <div><strong>Atención:</strong> Lunes a Sábado · 9:00 – 19:00 hrs</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="web.html">Páginas Web Profesionales</a></li>
+          <li><a href="logo.html">Diseño de Logotipos</a></li>
+          <li><a href="identidad.html">Colores e Identidad Visual</a></li>
+          <li><a href="tarjetas.html">Tarjetas de Presentación</a></li>
+          <li><a href="banners.html">Banners y Portadas</a></li>
+          <li><a href="enlaces.html">Ecosistema Bio Links</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Soluciones y Planes</h4>
+        <ul>
+          <li><a href="paquetes.html">Identity Dream Pack</a></li>
+          <li><a href="paquetes.html">Social Media Visual Pack</a></li>
+          <li><a href="paquetes.html">Layout &amp; Editorial B2B</a></li>
+          <li><a href="paquetes.html">Plan Impulso Web + Marca</a></li>
+          <li><a href="dominios.html">Registro de Dominios (.com / .mx)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Herramientas y Portal</h4>
+        <ul>
+          <li><a href="servicios.html">Cotizador en Tiempo Real</a></li>
+          <li><a href="boceto.html">Estudio de Marca Interactivo</a></li>
+          <li><a href="checkout.html">Confirmación de Pedido</a></li>
+          <li><a href="login.html">Acceso Portal de Clientes</a></li>
+          <li><a href="admin.html">DMD Agency OS (Admin)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Empresa y Respaldo</h4>
+        <ul>
+          <li><a href="index.html#proceso">Metodología de Trabajo</a></li>
+          <li><a href="index.html#portafolio">Casos de Éxito (Meseros Luna)</a></li>
+          <li><a href="index.html#equipo">Equipo Directivo DMD</a></li>
+          <li><a href="index.html#faq">Preguntas Frecuentes</a></li>
+          <li><a href="index.html#contacto">Contacto Directo</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Digital Majfa Dreams (DMD). Todos los derechos reservados. Precios expresados en Pesos Mexicanos (MXN).</div>
+      <div style="display:flex; gap:20px;">
+        <a href="index.html#faq">Garantía de Satisfacción</a>
+        <a href="servicios.html">Transparencia de Precios</a>
+        <a href="login.html">Privacidad y Seguridad</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

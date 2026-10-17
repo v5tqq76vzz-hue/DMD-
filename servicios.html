@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo y Cotizador en Vivo | Digital Majfa Dreams</title>
+<link rel="icon" href="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Majfa Dreams (DMD)">
+<meta property="og:title" content="Digital Majfa Dreams | Desarrollo Web, Identidad Visual y Marketing Digital">
+<meta property="og:description" content="Páginas web profesionales, diseño de logotipos, simulador con IA en 3D y dominios oficiales para empresas. Precios transparentes desde $150 MXN.">
+<meta property="og:image" content="og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Majfa Dreams (DMD) | Agencia Digital Corporativa">
+<meta name="twitter:description" content="Construimos la presencia digital e identidad corporativa de tu empresa. Prueba gratis nuestro Arquitecto Web IA 3D.">
+<meta name="twitter:image" content="og-preview.png">
+<meta name="theme-color" content="#0067b8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="ms-color-strip"></div>
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <div><strong>Digital Majfa Dreams (DMD)</strong> · Soluciones Digitales, Diseño Corporativo y Desarrollo Web para Empresas</div>
+    <div class="topbar-links">
+      <span>Atención Ejecutiva: Lun–Sáb 9:00 a 19:00 hrs</span>
+      <a href="servicios.html">Cotizador en Línea</a>
+      <a href="portal-cliente.html">Soporte a Clientes</a>
+    </div>
+  </div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="wrap navin">
+    <a class="brand" href="index.html">
+      <img src="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg" alt="DMD Logo">
+      <div>
+        <span>Digital Majfa Dreams</span>
+        <small class="brand-sub">Agencia Digital &amp; Diseño Corporativo</small>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰ <span class="menu-label">Menú</span></button>
+    <div class="links" id="navLinks">
+      <a href="index.html" class="">Inicio</a>
+      <a href="servicios.html" class="on">Servicios</a>
+      <a href="paquetes.html" class="">Paquetes</a>
+      <a href="dominios.html" class="">Dominios</a>
+      <a href="boceto.html" class="">Simulador</a>
+      <a href="index.html#portafolio">Portafolio</a>
+      <a href="index.html#contacto">Contacto</a>
+    </div>
+    <div class="acts2">
+      <button type="button" class="theme-toggle-btn" onclick="toggleDarkMode()" title="Cambiar entre Modo Claro y Modo Noche">
+        <span>🌙</span> <span class="theme-label">Modo Noche</span>
+      </button>
+      <a class="cart-pill" id="pill" href="servicios.html#aside" title="Ver servicios seleccionados">
+        <span class="cart-label">Cotización</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a class="btn" id="portalBtn" href="login.html" style="padding: 9px 16px; font-size:0.88rem;">Iniciar Sesión</a>
+      <a class="ghost" id="adminBtn" href="admin.html" style="display:none; padding: 9px 14px; font-size:0.86rem; border-color:var(--primary); color:var(--primary);">Panel Admin</a>
+    </div>
+  </div>
+</nav>
+<script src="script.js"></script>
+
+<section class="hero-band" style="padding: 44px 0 36px;">
+  <div class="wrap">
+    <span class="eyebrow">Cotizador Transparente en Tiempo Real</span>
+    <h1>Arma tu Cotización a la Medida</h1>
+    <p class="sub" style="margin-bottom:20px;">
+      Selecciona los servicios o paquetes que requiere tu empresa. Puedes personalizar las opciones de cada servicio o agregarlos directamente a tu presupuesto para confirmar tu pedido en línea.
+    </p>
+    <!-- Filtros por categoría -->
+    <div class="filter-bar-mob" style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button type="button" class="btn filter-btn" data-cat="all" onclick="filterServices('all', this)">Todos los Servicios</button>
+      <button type="button" class="ghost filter-btn" data-cat="web" onclick="filterServices('web', this)">Desarrollo Web y Dominios</button>
+      <button type="button" class="ghost filter-btn" data-cat="branding" onclick="filterServices('branding', this)">Logotipos e Identidad</button>
+      <button type="button" class="ghost filter-btn" data-cat="social" onclick="filterServices('social', this)">Redes Sociales y Paquetes</button>
+    </div>
+  </div>
+</section>
+
+<div class="wrap band" style="padding-top:40px;">
+  <div class="layout">
+    <!-- COLUMNA IZQUIERDA: CATÁLOGO DE SERVICIOS -->
+    <div>
+      <h2 style="font-size:1.45rem; margin-bottom:20px;">Servicios Individuales</h2>
+      <div class="grid" id="grid" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); margin-bottom:48px;">
+        <article class="card service-item" data-cat="web" id="c1">
+          <div class="service-icon">💻</div>
+          <h3>Página Web Profesional</h3>
+          <p class="mute" style="margin:8px 0 14px; font-size:0.92rem; flex:1;">Sitio web corporativo listo para recibir clientes, optimizado para celulares, con certificado SSL y WhatsApp.</p>
+          <div class="price-tag">$699 <small>MXN</small></div>
+          <div class="card-actions">
+            <a href="web.html" class="ghost" style="flex:1;">Opciones</a>
+            <button type="button" class="btn" style="flex:1;" onclick="addServiceAndRender('Página Web Profesional', 699)">+ Agregar</button>
+          </div>
+        </article>
+
+        <article class="card service-item" data-cat="branding" id="c2">
+          <div class="service-icon">✒️</div>
+          <h3>Diseño de Logotipo</h3>
+          <p class="mute" style="margin:8px 0 14px; font-size:0.92rem; flex:1;">3 propuestas originales y archivos de alta resolución para darle una imagen seria y confiable a tu negocio.</p>
+          <div class="price-tag">$250 <small>MXN</small></div>
+          <div class="card-actions">
+            <a href="logo.html" class="ghost" style="flex:1;">Opciones</a>
+            <button type="button" class="btn" style="flex:1;" onclick="addServiceAndRender('Diseño de Logotipo', 250)">+ Agregar</button>
+          </div>
+        </article>
+
+        <article class="card service-item" data-cat="branding" id="c3">
+          <div class="service-icon">📇</div>
+          <h3>Tarjetas de Presentación</h3>
+          <p class="mute" style="margin:8px 0 14px; font-size:0.92rem; flex:1;">Diseño ejecutivo 9×5 cm en formato CMYK listo para imprimir y entregar a tus clientes.</p>
+          <div class="price-tag">$150 <small>MXN</small></div>
+          <div class="card-actions">
+            <a href="tarjetas.html" class="ghost" style="flex:1;">Opciones</a>
+            <button type="button" class="btn" style="flex:1;" onclick="addServiceAndRender('Tarjetas de Presentación', 150)">+ Agregar</button>
+          </div>
+        </article>
+
+        <article class="card service-item" data-cat="social" id="c4">
+          <div class="service-icon">🖼️</div>
+          <h3>Banners y Portadas</h3>
+          <p class="mute" style="margin:8px 0 14px; font-size:0.92rem; flex:1;">Imágenes comerciales optimizadas para el perfil de tu Facebook, Instagram o LinkedIn.</p>
+          <div class="price-tag">$180 <small>MXN</small></div>
+          <div class="card-actions">
+            <a href="banners.html" class="ghost" style="flex:1;">Opciones</a>
+            <button type="button" class="btn" style="flex:1;" onclick="addServiceAndRender('Banners y Portadas', 180)">+ Agregar</button>
+          </div>
+        </article>
+
+        <article class="card service-item" data-cat="web" id="c5">
+          <div class="service-icon">🔗</div>
+          <h3>Ecosistema Bio Links</h3>
+          <p class="mute" style="margin:8px 0 14px; font-size:0.92rem; flex:1;">Micrositio con todos tus botones de contacto y redes para la biografía de Instagram o TikTok.</p>
+          <div class="price-tag">$190 <small>MXN</small></div>
+          <div class="card-actions">
+            <a href="enlaces.html" class="ghost" style="flex:1;">Opciones</a>
+            <button type="button" class="btn" style="flex:1;" onclick="addServiceAndRender('Ecosistema Bio Links', 190)">+ Agregar</button>
+          </div>
+        </article>
+
+        <article class="card service-item" data-cat="branding" id="c6">
+          <div class="service-icon">🎨</div>
+          <h3>Colores e Identidad Visual</h3>
+          <p class="mute" style="margin:8px 0 14px; font-size:0.92rem; flex:1;">Paleta cromática HEX/RGB y selección tipográfica para que tu marca luzca uniforme y formal.</p>
+          <div class="price-tag">$150 <small>MXN</small></div>
+          <div class="card-actions">
+            <a href="identidad.html" class="ghost" style="flex:1;">Opciones</a>
+            <button type="button" class="btn" style="flex:1;" onclick="addServiceAndRender('Colores e Identidad Visual', 150)">+ Agregar</button>
+          </div>
+        </article>
+      </div>
+
+      <!-- COMPLEMENTOS TÉCNICOS Y PAQUETES EN EL COTIZADOR -->
+      <h2 style="font-size:1.45rem; margin-bottom:20px;">Complementos de Dominio y Paquetes Integrales</h2>
+      <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+        <article class="card service-item" data-cat="web">
+          <span class="eyebrow">Dominio Anual</span>
+          <h3>Registro de Dominio .COM</h3>
+          <p class="mute" style="margin:6px 0 12px; font-size:0.9rem; flex:1;">Incluye configuración DNS, conexión a tu sitio web y renovación garantizada por 1 año.</p>
+          <div class="price-tag">$299 <small>MXN / año</small></div>
+          <button type="button" class="ghost" style="width:100%;" onclick="addServiceAndRender('Dominio Oficial .COM (1 año)', 299)">+ Agregar Dominio .COM</button>
+        </article>
+
+        <article class="card service-item" data-cat="web">
+          <span class="eyebrow">Dominio Nacional</span>
+          <h3>Registro de Dominio .COM.MX</h3>
+          <p class="mute" style="margin:6px 0 12px; font-size:0.9rem; flex:1;">Identidad comercial mexicana para empresas y negocios locales por 1 año.</p>
+          <div class="price-tag">$399 <small>MXN / año</small></div>
+          <button type="button" class="ghost" style="width:100%;" onclick="addServiceAndRender('Dominio Oficial .COM.MX (1 año)', 399)">+ Agregar Dominio .COM.MX</button>
+        </article>
+
+        <article class="card service-item" data-cat="social">
+          <span class="eyebrow">Paquete Integral</span>
+          <h3>Identity Dream Pack</h3>
+          <p class="mute" style="margin:6px 0 12px; font-size:0.9rem; flex:1;">Logotipo (3 propuestas), manual de marca, paleta de colores, tarjetas y papelería.</p>
+          <div class="price-tag">$1,499 <small>MXN</small></div>
+          <button type="button" class="ghost" style="width:100%;" onclick="addServiceAndRender('Paquete: Identity Dream Pack', 1499)">+ Agregar Paquete</button>
+        </article>
+
+        <article class="card service-item" data-cat="social">
+          <span class="eyebrow">Paquete Redes</span>
+          <h3>Social Media Visual Pack</h3>
+          <p class="mute" style="margin:6px 0 12px; font-size:0.9rem; flex:1;">12 plantillas editables, portadas optimizadas e historias destacadas para tus redes.</p>
+          <div class="price-tag">$1,299 <small>MXN</small></div>
+          <button type="button" class="ghost" style="width:100%;" onclick="addServiceAndRender('Paquete: Social Media Visual Pack', 1299)">+ Agregar Paquete</button>
+        </article>
+      </div>
+    </div>
+
+    <!-- COLUMNA DERECHA: RESUMEN DE COTIZACIÓN (REPARADO Y COMPLETO) -->
+    <aside id="aside" class="card sticky-aside" style="border-color:var(--primary); padding:28px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--line);">
+        <div>
+          <span class="eyebrow" style="margin:0;">Presupuesto en Vivo</span>
+          <h3 style="font-size:1.3rem;">Tu Selección DMD</h3>
+        </div>
+        <button type="button" class="cart-remove-btn" onclick="clearAllCart()" title="Vaciar cotización">Vaciar</button>
+      </div>
+
+      <div id="cartItemsList" style="min-height:110px; margin-bottom:18px;">
+        <div style="text-align:center; padding:24px 12px; color:var(--mute); font-size:0.88rem; border:1px dashed var(--line-strong); border-radius:8px; background:var(--bg-alt);">
+          Aún no has seleccionado servicios.<br><small>Haz clic en <b>"+ Agregar"</b> en cualquier tarjeta para armar tu presupuesto en vivo.</small>
+        </div>
+      </div>
+
+      <!-- Cupón de descuento -->
+      <div style="background:var(--bg-alt); padding:12px; border-radius:var(--radius-sm); border:1px solid var(--line); margin-bottom:18px;">
+        <label style="font-size:0.8rem; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:6px;">Código promocional (Prueba: DMD10)</label>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="couponInput" class="input-std" placeholder="Ej. DMD10" style="padding:7px 10px; font-size:0.88rem;">
+          <button type="button" class="ghost" style="padding:7px 14px; font-size:0.85rem;" onclick="applyCoupon()">Aplicar</button>
+        </div>
+        <div id="couponMsg" style="font-size:0.78rem; margin-top:6px;"></div>
+      </div>
+
+      <!-- Totales -->
+      <div style="border-top:1px solid var(--line); padding-top:14px; margin-bottom:20px;">
+        <div style="display:flex; justify-content:space-between; font-size:0.9rem; color:var(--mute); margin-bottom:6px;">
+          <span>Subtotal:</span>
+          <span id="cartSubtotal">$0 MXN</span>
+        </div>
+        <div id="discountRow" class="hidden" style="display:flex; justify-content:space-between; font-size:0.9rem; color:var(--success); margin-bottom:6px;">
+          <span>Descuento (10%):</span>
+          <span id="cartDiscount">-$0 MXN</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; font-size:1.25rem; font-weight:700; color:var(--text); margin-top:10px;">
+          <span>Inversión Total:</span>
+          <span id="cartTotal" style="color:var(--primary); font-size:1.6rem;">$0 MXN</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.84rem; color:var(--text-secondary); margin-top:6px; background:var(--primary-light); padding:8px 10px; border-radius:6px;">
+          <span>Anticipo 50% para iniciar hoy:</span>
+          <strong id="cartAdvance">$0 MXN</strong>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button type="button" class="btn" style="width:100%; padding:14px;" onclick="proceedToCheckout()">Confirmar Pedido en Línea →</button>
+        <button type="button" class="ghost" style="width:100%;" onclick="sendCartToWhatsApp()">Enviar Cotización por WhatsApp 💬</button>
+        <button type="button" class="ghost" style="width:100%; font-size:0.85rem;" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+  let activeDiscount = 0;
+
+  function addServiceAndRender(name, price) {
+    addItemToCart(name, price);
+    renderCotizadorCart();
+  }
+
+  function clearAllCart() {
+    saveCart([]);
+    renderCotizadorCart();
+  }
+
+  function applyCoupon() {
+    const code = document.getElementById("couponInput").value.trim().toUpperCase();
+    const msgEl = document.getElementById("couponMsg");
+    if (code === "DMD10" || code === "EMPRESA10") {
+      activeDiscount = 0.10;
+      safeSet("dmd_discount", "0.10");
+      msgEl.style.color = "var(--success)";
+      msgEl.textContent = "✓ Cupón del 10% aplicado correctamente.";
+    } else {
+      activeDiscount = 0;
+      safeRemove("dmd_discount");
+      msgEl.style.color = "var(--danger)";
+      msgEl.textContent = "Código no válido. Usa DMD10 para 10% de descuento.";
+    }
+    renderCotizadorCart();
+  }
+
+  function renderCotizadorCart() {
+    const cart = getCart();
+    const listEl = document.getElementById("cartItemsList");
+    const subEl = document.getElementById("cartSubtotal");
+    const discRow = document.getElementById("discountRow");
+    const discEl = document.getElementById("cartDiscount");
+    const totalEl = document.getElementById("cartTotal");
+    const advEl = document.getElementById("cartAdvance");
+
+    if (safeGet("dmd_discount") === "0.10") {
+      activeDiscount = 0.10;
+    }
+
+    if (cart.length === 0) {
+      listEl.innerHTML = `<div style="text-align:center; padding:28px 10px; color:var(--mute); font-size:0.9rem; border:1px dashed var(--line-strong); border-radius:8px;">
+        Aún no has seleccionado servicios.<br><small>Haz clic en "+ Agregar" en cualquier tarjeta para armar tu presupuesto.</small>
+      </div>`;
+      subEl.textContent = "$0 MXN";
+      discRow.classList.add("hidden");
+      totalEl.textContent = "$0 MXN";
+      advEl.textContent = "$0 MXN";
+      return;
+    }
+
+    let subtotal = 0;
+    listEl.innerHTML = cart.map(item => {
+      subtotal += Number(item.p);
+      return `<div class="cart-item-row">
+        <div>
+          <div style="font-weight:600; color:var(--text);">${item.n}</div>
+          <div style="font-size:0.82rem; color:var(--primary); font-weight:600;">$${Number(item.p).toLocaleString("es-MX")} MXN</div>
+        </div>
+        <button type="button" class="cart-remove-btn" onclick="removeItemFromCart(${item.id})">✕ Quitar</button>
+      </div>`;
+    }).join("");
+
+    const discountAmount = Math.round(subtotal * activeDiscount);
+    const finalTotal = subtotal - discountAmount;
+    const advance = Math.round(finalTotal / 2);
+
+    subEl.textContent = `$${subtotal.toLocaleString("es-MX")} MXN`;
+    if (discountAmount > 0) {
+      discRow.classList.remove("hidden");
+      discEl.textContent = `-$${discountAmount.toLocaleString("es-MX")} MXN`;
+    } else {
+      discRow.classList.add("hidden");
+    }
+    totalEl.textContent = `$${finalTotal.toLocaleString("es-MX")} MXN`;
+    advEl.textContent = `$${advance.toLocaleString("es-MX")} MXN`;
+  }
+
+  function proceedToCheckout() {
+    const cart = getCart();
+    if (cart.length === 0) {
+      alert("Agrega al menos un servicio a tu cotización antes de continuar.");
+      return;
+    }
+    window.location.href = "checkout.html";
+  }
+
+  function sendCartToWhatsApp() {
+    const cart = getCart();
+    if (cart.length === 0) {
+      alert("Agrega al menos un servicio para enviar tu cotización.");
+      return;
+    }
+    const subtotal = cart.reduce((acc, i) => acc + Number(i.p), 0);
+    const total = Math.round(subtotal * (1 - activeDiscount));
+    const lines = cart.map(i => `• ${i.n} ($${Number(i.p).toLocaleString("es-MX")} MXN)`).join("\n");
+    const msg = `Hola equipo DMD, armé mi cotización en su sitio web:\n\n${lines}\n\n*Total estimado:* $${total.toLocaleString("es-MX")} MXN\n*Anticipo 50%:* $${Math.round(total/2).toLocaleString("es-MX")} MXN\n\nMe gustaría iniciar mi proyecto.`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
+  }
+
+  function filterServices(cat, btnEl) {
+    document.querySelectorAll(".filter-btn").forEach(b => {
+      b.className = "ghost filter-btn";
+    });
+    btnEl.className = "btn filter-btn";
+    document.querySelectorAll(".service-item").forEach(card => {
+      if (cat === "all" || card.getAttribute("data-cat") === cat) {
+        card.style.display = "flex";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", renderCotizadorCart);
+</script>
+
+<!-- WIDGET DE ASISTENCIA EJECUTIVA -->
+<div class="chat-widget">
+  <button class="chat-btn" id="chatBtn" aria-label="Abrir asistente ejecutivo">
+    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <span>Asesor en Línea</span>
+  </button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div>
+        <strong style="display:block; font-size:0.95rem;">Atención a Clientes DMD</strong>
+        <span style="font-size:0.76rem; opacity:0.9;">Respuesta inmediata · Horario comercial</span>
+      </div>
+      <button class="ghost" id="chatClose" style="padding:4px 9px; border:none; background:rgba(255,255,255,0.15); color:#fff;">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg bot">Bienvenido a <strong>Digital Majfa Dreams</strong>. ¿En qué podemos asesorarte hoy para impulsar tu negocio?</div>
+      <div class="chat-opts" id="chatOpts">
+        <button onclick="sendUserMsg('Quiero cotizar servicios')">Cotizar servicios individuales</button>
+        <button onclick="sendUserMsg('Busco un paquete integral')">Ver paquetes empresariales</button>
+        <button onclick="sendUserMsg('Consultar tiempos de entrega')">Tiempos de entrega y garantías</button>
+        <button onclick="sendUserMsg('Hablar con un asesor')">Contactar a un asesor humano</button>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="Escribe tu consulta..." onkeypress="if(event.key==='Enter') sendCustomMsg()">
+      <button class="btn" onclick="sendCustomMsg()" style="padding:0 14px;">Enviar</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a class="brand" href="index.html" style="margin-bottom:14px;">
+          <img src="WhatsApp Image 2026-09-17 at 10.40.30 PM.jpeg" alt="DMD">
+          <span>Digital Majfa Dreams</span>
+        </a>
+        <p style="color:var(--mute); font-size:0.88rem; margin-bottom:16px; max-width:300px;">
+          Agencia especializada en desarrollo web, identidad corporativa, diseño editorial y ecosistemas digitales para empresas y comercios en México.
+        </p>
+        <div style="font-size:0.84rem; color:var(--text-secondary);">
+          <div><strong>Ubicación:</strong> Estado de México, México</div>
+          <div><strong>Atención:</strong> Lunes a Sábado · 9:00 – 19:00 hrs</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="web.html">Páginas Web Profesionales</a></li>
+          <li><a href="logo.html">Diseño de Logotipos</a></li>
+          <li><a href="identidad.html">Colores e Identidad Visual</a></li>
+          <li><a href="tarjetas.html">Tarjetas de Presentación</a></li>
+          <li><a href="banners.html">Banners y Portadas</a></li>
+          <li><a href="enlaces.html">Ecosistema Bio Links</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Soluciones y Planes</h4>
+        <ul>
+          <li><a href="paquetes.html">Identity Dream Pack</a></li>
+          <li><a href="paquetes.html">Social Media Visual Pack</a></li>
+          <li><a href="paquetes.html">Layout &amp; Editorial B2B</a></li>
+          <li><a href="paquetes.html">Plan Impulso Web + Marca</a></li>
+          <li><a href="dominios.html">Registro de Dominios (.com / .mx)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Herramientas y Portal</h4>
+        <ul>
+          <li><a href="servicios.html">Cotizador en Tiempo Real</a></li>
+          <li><a href="boceto.html">Estudio de Marca Interactivo</a></li>
+          <li><a href="checkout.html">Confirmación de Pedido</a></li>
+          <li><a href="login.html">Acceso Portal de Clientes</a></li>
+          <li><a href="admin.html">DMD Agency OS (Admin)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Empresa y Respaldo</h4>
+        <ul>
+          <li><a href="index.html#proceso">Metodología de Trabajo</a></li>
+          <li><a href="index.html#portafolio">Casos de Éxito (Meseros Luna)</a></li>
+          <li><a href="index.html#equipo">Equipo Directivo DMD</a></li>
+          <li><a href="index.html#faq">Preguntas Frecuentes</a></li>
+          <li><a href="index.html#contacto">Contacto Directo</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Digital Majfa Dreams (DMD). Todos los derechos reservados. Precios expresados en Pesos Mexicanos (MXN).</div>
+      <div style="display:flex; gap:20px;">
+        <a href="index.html#faq">Garantía de Satisfacción</a>
+        <a href="servicios.html">Transparencia de Precios</a>
+        <a href="login.html">Privacidad y Seguridad</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
